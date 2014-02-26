@@ -1,0 +1,22 @@
+.icon-32
+{
+    font-size: 32px;
+}
+.icon-64
+{
+    font-size: 64px;
+}
+.icon-128
+{
+    font-size: 128px;
+    text-align:center;
+}
+.icon-256
+{
+    font-size: 256px;
+    text-align:center;
+}
+
+.admin-icon{
+    font-size:10em;
+}

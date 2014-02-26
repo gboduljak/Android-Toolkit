@@ -1,0 +1,24 @@
+﻿@model AndroidToolkitWeb.Entities.BlogPost
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_BlogWriteLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h2>Are you sure you want to delete this?</h2>
+<div>
+    <h3>Blog Post - @Model.Name</h3>
+    <hr />
+
+
+    <form method="post" action="~/Blog/Post/Delete/@Model.ID/@Model.Name">
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger btn-large" />
+        </div>
+
+    </form>
+
+</div>

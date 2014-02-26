@@ -1,0 +1,14 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model SearchResultCategory
+
+@{
+    var field = Model.GetType().GetField(Model.ToString());
+    if (field != null)
+    {
+        var display = ((DisplayAttribute[])field.GetCustomAttributes(typeof(DisplayAttribute), false)).FirstOrDefault();
+        if (display != null)
+        {
+            @display.Name
+        }
+    }
+}

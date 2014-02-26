@@ -1,0 +1,102 @@
+﻿@model IEnumerable<AndroidToolkitWeb.Entities.Review>
+@{
+    ViewBag.Title = "Reviews";
+}
+<div class="well" style="visibility:hidden"></div>
+@section seo
+{
+    <meta name="application-name" content="Android Toolkit" />
+    <meta name="author" content="Gabrijel Boduljak" />
+    <meta name="description" content="Android Toolkit Reviews." />
+    <meta name="keywords" content="Android Toolkit,reviews, 5 stars,stars Android, ADB, Fastboot, Gabrijel Boduljak, recovery, flash" />
+    <meta name="robots" content="INDEX, FOLLOW">
+}
+<div id="nav-bar">
+    <div class="row">
+        <div class="span9">
+            <div id="header-container">
+                <a id="backbutton" class="win-backbutton" href="~/Home/Index"></a>
+                <div class="dropdown">
+                    <h1 class="header-dropdown accent-color">@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="metroWellGreen">
+                <div class="icon-list icon-128"></div>
+                <div class="icon-star icon-128"></div>
+            </div>
+            <a href="~/Feedback/Reviews/Create" class="btn-large btn-info">
+                WRITE REVIEW
+            </a>
+        </div>
+        <div class="span9">
+            <div class="well" style="visibility:hidden"></div>
+            @foreach (var review in Model)
+            {
+            <div class="well">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h2>@review.Name</h2>
+                        <h3>Review Description</h3>
+                        <p>
+                            @Html.Raw(review.RatingDescription)
+                        </p>
+                        <div class="row-fluid">
+                            <h3>Rating: </h3>
+                            @switch (review.Rating)
+                                    {
+                                        case 1:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                            break;
+                                        case 2:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                            break;
+                                        case 3:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                            break;
+                                        case 4:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                            break;
+                                        case 5:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                            break;
+                                    }
+                        </div>
+
+                        <a class="btn btn-mini" href="~/Feedback/Reviews/Review/@review.ID/@review.Name">Read more</a>
+                        <p class="pull-right">Posted by @review.Author on @review.Date.ToString()</p>
+                    </div>
+                </div>
+              
+
+
+            </div>
+            }
+        </div>
+    </div>
+</div> 

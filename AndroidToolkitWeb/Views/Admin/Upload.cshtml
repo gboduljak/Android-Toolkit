@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="metroWell">
+                <form action="/api/upload" enctype="multipart/form-data">
+                    <div class="row fileupload-buttonbar">
+                        <div class="col-md-12">
+                            <div class="well" style="color:darkgray">
+                                <input type="file" id="upload" name="upload" multiple="multiple">
+                                <button id="btnUploadAll" class="btn btn-default pull-right" type="button">
+                                    <span class="glyphicon glyphicon-upload pulse"></span> <strong>Upload all</strong>
+                                </button>
+                                <div class="clearfix">
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" id="overallbar" style="width: 0%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="metroWell hide" id="filelistholder" style="color:darkgray">
+                    <h1>Selected files:</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/admin/js")
+<script type="text/javascript">
+    $(function () {
+        $('#upload').fileupload({
+            dataType: "json",
+            url: "/api/upload",
+            limitConcurrentUploads: 1,
+            sequentialUploads: true,
+            progressInterval: 100,
+            maxChunkSize: 10000,
+            add: function (e, data) {
+                $('#filelistholder').removeClass('hide');
+                data.context = $('<div />').text(data.files[0].name).appendTo('#filelistholder');
+                $('</div><div class="progress progress-striped active"><div class="progress-bar" style="width:0%"></div></div>').appendTo(data.context);
+                $('#btnUploadAll').click(function () {
+                    data.submit();
+                });
+            },
+            done: function (e, data) {
+                data.context.text(data.files[0].name + '... Completed');
+                $('</div><div class="progress"><div class="progress-bar" style="width:100%"></div></div>').appendTo(data.context);
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#overallbar').css('width', progress + '%');
+            },
+            progress: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                data.context.find('.progress-bar').css('width', progress + '%');
+            }
+        });
+    });
+
+</script>
+

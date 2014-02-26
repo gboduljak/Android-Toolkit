@@ -1,0 +1,99 @@
+﻿.metroWellGreen {
+    min-height: 20px;
+    margin-bottom: 20px;
+    background-color: #13c97a;
+    border: 1px solid #e3e3e3;
+    color: white;
+}
+
+.metroWellGreenTopFix {
+    min-height: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    background-color: #13c97a;
+    border: 1px solid #e3e3e3;
+    color: white;
+}
+
+.metroWellLightBlue {
+    min-height: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #3498db;
+    border: 1px solid #e3e3e3;
+    color: white;
+}
+
+.metroWellOrange {
+    min-height: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #ff6a00;
+    border: 1px solid #e3e3e3;
+    color: white;
+}
+
+.metroWellPurple {
+    min-height: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #8802d7;
+    border: 1px solid #e3e3e3;
+    color: white;
+}
+
+.metroWellDarkGray {
+    min-height: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #2b2b2b;
+    border: 1px solid #e3e3e3;
+    color: white;
+}
+
+.metroWellGray {
+    min-height: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #808080;
+    border: 1px solid #e3e3e3;
+    color: white;
+}
+
+.metroWell {
+    min-height: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    color: #808080;
+    list-style-type:none;
+}
+
+.metroWell ul
+{
+    list-style-type:none;
+}
+
+    .metroWell:hover {
+        background-color: #e3e3e3;
+        border: 1px solid #3498db;
+    }
+
+    .metroWell h1
+    {
+        color:#3498db;
+    }
+    .metroWell h1:hover
+    {
+        text-decoration:underline;
+        font-weight:bolder;
+    }
+
+.metroWell-icon{
+       color: #808080;
+}
+.metroWell-icon:hover
+{
+     color:#3498db;
+}
+

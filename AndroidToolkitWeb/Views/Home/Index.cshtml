@@ -1,0 +1,310 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#topCarousel").swiperight(function () {
+            $(this).carousel('prev');
+        });
+        $("#topCarousel").swipeleft(function () {
+            $(this).carousel('next');
+        });
+        $("#homeCarousel").swiperight(function () {
+            $(this).carousel('prev');
+        });
+        $("#homeCarousel").swipeleft(function () {
+            $(this).carousel('next');
+        });
+    });
+</script>
+
+@section seo
+{
+    <meta name="application-name" content="Android Toolkit" />
+    <meta name="author" content="Gabrijel Boduljak" />
+    <meta name="description" content="Android Toolkit is revolutionary Android Device managment tool. ADB, Fastboot, Advanced Tools, Recovery Flasher and so on." />
+    <meta name="keywords" content="Android Toolkit, Android, ADB, Fastboot, Gabrijel Boduljak, recovery, flash" />
+    <meta name="robots" content="INDEX, FOLLOW">
+}
+
+<div class="row-fluid expandUp">
+    <div class="span12">
+        <div id="topCarousel" class="carousel slide" data-interval="3000">
+            <ol class="carousel-indicators">
+                <li data-target="#topCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#topCarousel" data-slide-to="1"></li>
+                <li data-target="#topCarousel" data-slide-to="2"></li>
+                <li data-target="#topCarousel" data-slide-to="3"></li>
+                <li data-target="#topCarousel" data-slide-to="4"></li>
+                <li data-target="#topCarousel" data-slide-to="5"></li>
+                <li data-target="#topCarousel" data-slide-to="6"></li>
+                <li data-target="#topCarousel" data-slide-to="7"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="active item item-lightGray">
+                    <img alt="first item" src="~/img/BillboardHome.png" class="img-responsive">
+                </div>
+                <div class="item item-darkGray">
+                    <img alt="first item" src="~/img/logo2.png" class="img-responsive carousel-center">
+                    <div class="carousel-caption">
+                        <h4>Logo - Image tells more than thousand words</h4>
+                    </div>
+                </div>
+                <div class="item item-darkGray">
+                    <img alt="second item" src="~/img/BillboardHome2.png" class="img-responsive carousel-center">
+                </div>
+                <div class="item item-darkGray">
+                    <img alt="second item" src="~/img/Devices.png" class="img-responsive carousel-center">
+                </div>
+                <div class="item item-darkGray">
+                    <img alt="second item" src="~/img/ADB.png" class="img-responsive carousel-center">
+                </div>
+                <div class="item item-darkGray">
+                    <img alt="second item" src="~/img/Fastboot.png" class="img-responsive carousel-center">
+                </div>
+                <div class="item item-darkGray">
+                    <img alt="second item" src="~/img/Advanced.png" class="img-responsive carousel-center">
+                </div>
+                <div class="item item-light">
+                    <img alt="second item" src="~/img/icon-info.png" class="img-responsive carousel-center">
+                    <div class="carousel-caption">
+                        <h4>Visit <a href="~/Home/Toolkit" style="color:lightblue">Toolkit</a> for more info</h4>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control left" href="#topCarousel" data-slide="prev"></a>
+            <a class="carousel-control right" href="#topCarousel" data-slide="next"></a>
+        </div>
+    </div>
+</div>
+
+
+<div class="row-fluid pullUp">
+    <div class="span2"></div>
+    <div class="span8">
+        <div class="metroWellGreen">
+            <h1 class="pull-center">WHAT IS ANDROID TOOLKIT ?</h1>
+            <p class="marginize">Android Toolkit is app for Android device managment and modification. It has built in ADB Tools, Fastboot Tools and CUSTOM RECOVERY FLASHER and much more. There is also support for remote ADB control</p>
+        </div>
+    </div>
+    <div class="span2"></div>
+</div>
+
+
+<div class="row-fluid slideRight">
+    <div class="span4 metroWell">
+        <div>
+            <div style="text-align:center" class="icon-mobile-2 icon-128 metroWell-icon"></div>
+            <h1 class="pull-center">WORKS WITH ALL DEVICES</h1>
+            <p>
+                UNIVERSAL ADB DRIVERS let toolkit work with all devices. One click and download.
+            </p>
+
+        </div>
+
+    </div>
+    <div class="span4 metroWell">
+        <div>
+            <div style="text-align:center" class="icon-tools icon-128 metroWell-icon"></div>
+            <h1 class="pull-center">TOOLS</h1>
+            <div class="row-fluid">
+                <div class="span6" style="text-align:center">
+                    <ul>
+                        <li>ADB TOOLS</li>
+                        <li>FASTBOOT TOOLS</li>
+                        <li>ADVANCED TOOLS</li>
+                        <li>RECOVERY MASTER</li>
+                    </ul>
+                </div>
+                <div class="span6" style="text-align:center">
+                    <ul>
+                        <li>REMOTE ADB</li>
+                        <li>DEVICE RESTORE</li>
+                        <li>ZIP FLASHER</li>
+                        <li>AND MUCH MORE...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="span4 metroWell">
+        <div>
+            <div style="text-align:center" class="icon-flag icon-128 metroWell-icon"></div>
+            <h1 class="pull-center">FREE</h1>
+            <strong>
+                FREE FOR EVERYONE
+            </strong>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="row-fluid slideLeft">
+    <div class="span12">
+        <div id="homeCarousel" class="carousel slide" data-interval="3000">
+            <ol class="carousel-indicators">
+                <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#homeCarousel" data-slide-to="1"></li>
+                <li data-target="#homeCarousel" data-slide-to="2"></li>
+                <li data-target="#homeCarousel" data-slide-to="3"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="active item">
+                    <img alt="first item" src="~/img/homeCarousel1.jpg">
+                    <div class="carousel-caption">
+                        <h4>Android Toolkit</h4>
+                        <p>Universal Drivers => WORKS WITH ANY DEVICE</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img alt="second item" src="~/img/homeCarousel2.jpg">
+                    <div class="carousel-caption">
+                        <h4>AIO Tools</h4>
+                        <p>ADB + Fastboot + Recovery Master</p>
+                        <a href="btn">Read More</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <img alt="third item" src="~/img/homeCarousel3.jpg">
+                    <div class="carousel-caption">
+                        <h4>Metro User Interface</h4>
+                        <p>Android Toolkit is powered with Metro interface in desktop app. Cool :)</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img alt="forth item" src="~/img/homeCarousel4.jpg">
+                    <div class="carousel-caption">
+                        <h4>It is FREEEE!</h4>
+                        <p>And of course, Android Toolkit is free. ;)</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control left" href="#homeCarousel" data-slide="prev"></a>
+            <a class="carousel-control right" href="#homeCarousel" data-slide="next"></a>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="row-fluid expandUp">
+    <div class="span4">
+        <ul class="nav nav-stacked">
+            <li class="nav-header">FEEDBACK</li>
+            <li class="active">
+                <ul class="nav">
+                    <li>
+                        <a class="btn btn-large btn-info" href="~/Feedback/Reviews/Create">
+                            <span class="icon-pencil-2">
+                            </span>
+                            Write a review
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Feedback/BugReports/Report" class="btn btn-large btn-inverse">
+                            <span class="icon-bug">
+                            </span>
+                            Report bug :(
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+    <div class="span8">
+        <div id="pivot" class="pivot slide">
+            <div class="pivot-headers">
+                <a href="#pivot" data-pivot-index="0" class="active">Author</a>
+                <a href="#pivot" data-pivot-index="1">Latest</a>
+            </div>
+            <div class="pivot-items">
+                <div id="pivot-item" class="pivot-item active">
+                    <h3>Author</h3>
+                    <div class="row-fluid">
+                        <div class="span5">
+                            <div class="metroWellLightBlue">
+                                <h1 class="pull-center">Gabrijel Boduljak - About Me</h1>
+                                <p class="lead marginize">
+                                    <strong>I was born on the 23.4.1999. I am programmer, web developer/designer, gamer and hardware enthusiast. Currently, I am going to OS don Lovre Katica PRIMARY SCHOOL.</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <img class="img-circle img-author" src="@Url.Content("~/img/gboduljak-authorImg.png")" />
+                        </div>
+                    </div>
+                </div>
+                <div id="pivot-item-2" class="pivot-item">
+                    <h3>Latest</h3>
+                    <div class="row-fluid">
+                        @{
+                            if (ViewBag.LatestReview != null)
+                            {
+                                <div class="span4">
+                                    <h2>Latest REVIEW</h2>
+                                    <div class="well-small">
+                                        <h3>Name:<a href="~/Feedback/Reviews/Review/@ViewBag.LatestReview.ID/@ViewBag.LatestReview.Name"><small>@ViewBag.LatestReview.Name</small></a></h3>
+                                        <br />
+                                        <h3><span class="icon-calendar"></span><small>@ViewBag.LatestReview.Date</small></h3>
+                                        <br />
+                                        <h3><span class="icon-user"></span><small>@ViewBag.LatestReview.Author</small></h3>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-info">NO REVIEWS IN DB</div>
+                            }
+                            if (ViewBag.LatestBugReport != null)
+                            {
+
+                                <div class="span4">
+                                    <h2>Latest BUG REPORT</h2>
+                                    <div class="well-small">
+                                        <h3>Name:<a href="~/Feedback/BugReports/BugReport/@ViewBag.LatestBugReport.ID/@ViewBag.LatestBugReport.Name"><small>@ViewBag.LatestBugReport.Name</small></a></h3>
+                                        <br />
+                                        <h3><span class="icon-calendar"></span><small>@ViewBag.LatestBugReport.Date</small></h3>
+                                        <br />
+
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-info">NO BUG REPORTS IN DB</div>
+                            }
+                            if (ViewBag.LatestBlogPost != null)
+                            {
+
+                                <div class="span4">
+                                    <h2>Latest BLOG POST</h2>
+                                    <div class="well-small">
+                                        <h3>Name:<a href="~/Blog/Posts/Post/Details/@ViewBag.LatestBlogPost.ID/@ViewBag.Name"><small>@ViewBag.LatestBlogPost.Name</small></a></h3>
+                                        <br />
+                                        <h3><span class="icon-calendar"></span><small>@ViewBag.LatestBlogPost.Date</small></h3>
+                                        <br />
+                                        <h3><span class="icon-user"></span><small>@ViewBag.LatestBlogPost.Author</small></h3>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-info">NO BLOG POSTS IN DB</div>
+                            }
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

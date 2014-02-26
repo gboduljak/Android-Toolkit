@@ -1,0 +1,33 @@
+﻿@model AndroidToolkitWeb.Models.AdminPanelViewModel
+@{
+    ViewBag.Title = "Panel";
+}
+
+@section Jumbotron
+{
+
+    <div class="jumbotron expandOpen">
+        <div class="row">
+            <div class="col-md-4">
+                <i class="glyphicon glyphicon-cog admin-icon pull-center" style="vertical-align:middle"></i>
+                <i class="fa fa-tasks admin-icon pull-center" style="vertical-align:middle"></i>
+
+            </div>
+            <div class="col-md-8">
+                <div class="page-header">
+                    <h1>
+                        Android Toolkit Web Administration <br /> <small>
+                            <i class="fa fa-user"></i> Hello, @User.Identity.Name
+                        </small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+

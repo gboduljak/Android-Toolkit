@@ -1,0 +1,117 @@
+﻿@model IEnumerable<AndroidToolkitWeb.Entities.BlogPost>
+@{
+    ViewBag.Title = "Posts";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+
+}
+@section seo
+{
+    <meta name="application-name" content="Android Toolkit" />
+    <meta name="author" content="Gabrijel Boduljak" />
+    <meta name="description" content="Android Toolkit Blog" />
+    <meta name="keywords" content="Android Toolkit, Android Toolkit Blog, Android, ADB, Fastboot, Gabrijel Boduljak, recovery, flash, blog" />
+    <meta name="robots" content="INDEX, FOLLOW">
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            @foreach (var post in Model)
+            {
+                <div class="post pullUp">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <a href="#">
+                                <img class="img-circle img-author marginize" src="~/img/@post.Author-authorImg.png" alt="Author">
+                            </a>
+                        </div>
+                        <div class="span8">
+                            <div class="row">
+                                <div class="span12">
+                                    <h1 class="post-title"><a class="post-link" href="~/Blog/Post/Details/@post.ID/@post.Name">@post.Name</a></h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="span12">
+                                    <p>
+                                        @Html.Raw(post.Description)
+                                    </p>
+                                    <div class="expandUp">
+
+                                        <a class="btn btn-inverse" href="~/Blog/Post/Details/@post.ID/@post.Name">Read more <span class="icon-read-more pulse"></span></a>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a class="btn btn-info" href="~/Blog/Post/Edit/@post.ID/@post.Name">
+                                                <span class="icon icon-pencil-2 pulse"></span>
+                                            </a>
+                                            <a class="btn btn-danger" href="~/Blog/Post/Delete/@post.ID/@post.Name">
+                                                <span class="icon icon-cancel pulse"></span>
+                                            </a>
+                                        }
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="span12">
+                                    <p></p>
+                                    <p>
+                                        <i class="icon-user"></i><a href="#" class="post-link">@post.Author</a>
+                                        | <i class="icon-calendar"></i> @post.Date.ToString();
+                                        | <i class="icon-tags"></i>
+                                        @{
+                                        var tags = post.Tags.Split(',');
+                                        foreach (string tag in tags)
+                                        {
+                                            <a href="#"> <span class="label label-inverse">@tag</span> </a>
+                                        }
+                                        } |
+                                        @{
+                                            <strong>Edited :</strong>
+                if (post.IsEdited)
+                {
+                    <i class="icon-checkmark icon-green"></i>
+                }
+                else
+                {
+                    <i class="icon-cancel icon-red"></i>
+                }
+                                        }
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span2"></div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+    <br />
+    <hr />
+    <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8" id="disqus">
+            <h3>LEAVE REPLY</h3>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'androidtoolkitweb'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function () {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        </div>
+        <div class="span2"></div>
+    </div>
+</div>

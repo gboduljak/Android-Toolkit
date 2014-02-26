@@ -1,0 +1,277 @@
+﻿@model AndroidToolkitWeb.Models.AdminPanelViewModel
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#refresh-users').click(function () {
+            Refresh();
+            $('#AdminContent').load('/Admin/Users');
+        });
+        function Refresh() {
+            $('#AdminContent').empty();
+            $("<h1>Refreshing... Please wait...</h1>").appendTo('#AdminContent');
+            $("<i></i>").attr('class', 'fa fa-refresh icon-64 fa-spin').appendTo('#AdminContent');
+        };
+    });
+</script>
+<h1>Users managment</h1>
+<div class="row">
+    <div class="col-md-2">
+        <i class="fa fa-group icon-128"></i>
+        <i class="fa fa-edit icon-128"></i>
+        <button id="refresh-users" class="btn btn-default btn-block">
+            <i class="fa fa-refresh fa-spin pulse"></i>
+        </button>
+    </div>
+    <div class="col-md-10">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td><i class="fa fa-user"></i></td>
+                            <td>@user.Id</td>
+                            <td>@user.UserName</td>
+                            <td>@user.Name</td>
+                            <td>@user.Surname</td>
+                            <td>@user.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <h1>Create User</h1>
+        <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+        <form action="~/Admin/CreateUser" class="form-horizontal" data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#status2" id="form0" method="post">
+            @Html.ValidationSummary(true)
+
+            @Html.LabelFor(m => m.NewUserModel.Name)
+            <div>
+                @Html.TextBoxFor(m => m.NewUserModel.Name, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.NewUserModel.Name)
+            </div>
+
+
+            @Html.LabelFor(m => m.NewUserModel.Surname)
+            <div>
+                @Html.TextBoxFor(m => m.NewUserModel.Surname, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.NewUserModel.Surname)
+            </div>
+
+
+            @Html.LabelFor(m => m.NewUserModel.UserName)
+            <div>
+                @Html.TextBoxFor(m => m.NewUserModel.UserName, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.NewUserModel.UserName)
+            </div>
+
+
+            @Html.LabelFor(m => m.NewUserModel.Email)
+            <div>
+                @Html.TextBoxFor(m => m.NewUserModel.Email, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.NewUserModel.Email)
+            </div>
+
+
+            @Html.LabelFor(m => m.NewUserModel.Password)
+            <div>
+                @Html.PasswordFor(m => m.NewUserModel.Password, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.NewUserModel.Password)
+            </div>
+
+            @Html.LabelFor(m => m.NewUserModel.ConfirmPassword)
+            <div>
+                @Html.PasswordFor(m => m.NewUserModel.ConfirmPassword, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.NewUserModel.ConfirmPassword)
+            </div>
+
+            <br />
+            <div>
+                <button type="submit" value="Create" class="btn btn-primary btn-block">
+                    <i class="fa fa-pencil"></i>
+                </button>
+            </div>
+
+
+
+        </form>
+        <div id="status2">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+        <form action="~/Admin/ChangeUserPassword" class="form-horizontal" data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#status" id="form0" method="post">
+            @Html.ValidationSummary(true)
+            <h1>Change Password</h1>
+
+            @Html.LabelFor(m => m.EditUserModel.UserName)
+            <div>
+                @Html.TextBoxFor(m => m.EditUserModel.UserName, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.EditUserModel.UserName)
+            </div>
+
+
+            @Html.LabelFor(m => m.EditUserModel.NewPassword)
+            <div>
+                @Html.PasswordFor(m => m.EditUserModel.NewPassword, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.EditUserModel.NewPassword)
+            </div>
+
+            <br />
+            <div>
+                <button type="submit" value="Change password" class="btn btn-primary btn-block">
+                    <i class="fa fa-edit"></i>
+                </button>
+            </div>
+
+
+
+
+        </form>
+        <div id="status">
+
+        </div>
+        <form action="~/Admin/ChangeUserUsername" class="form-horizontal" data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#status4" id="form0" method="post" style="margin-left: 4px; margin-right: 4px;">
+            @Html.ValidationSummary(true)
+            <h1>Change Username</h1>
+
+            @Html.LabelFor(m => m.EditUserModel.OldUserName)
+            <div>
+                @Html.TextBoxFor(m => m.EditUserModel.OldUserName, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.EditUserModel.OldUserName)
+            </div>
+
+
+            @Html.LabelFor(m => m.EditUserModel.NewUserName)
+            <div>
+                @Html.TextBoxFor(m => m.EditUserModel.NewUserName, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.EditUserModel.NewUserName)
+            </div>
+
+            <br />
+            <div>
+                <button type="submit" value="Change username" class="btn btn-primary btn-block">
+                    <i class="fa fa-edit"></i>
+                </button>
+            </div>
+
+        </form>
+        <div id="status4">
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h1>Delete User</h1>
+        <form action="~/Admin/DeleteUser" class="form-horizontal" data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#status3" id="form0" method="post">
+            @Html.ValidationSummary(true)
+
+            @Html.LabelFor(m => m.DeleteUserModel.DeleteUserName)
+            <div>
+                @Html.TextBoxFor(m => m.DeleteUserModel.DeleteUserName, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(m => m.DeleteUserModel.DeleteUserName)
+            </div>
+            <br />
+            <button type="submit" value="Delete" class="btn btn-danger btn-block">
+                <i class="fa fa-ban"></i>
+            </button>
+        </form>
+        <div id="status3">
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <hr />
+    <div class="col-md-4">
+        <h1>Make Admin</h1>
+        <a data-toggle="modal" href="#giveAdmin" class="btn btn-primary btn-block">
+            <i class="fa fa-edit"></i>Give Admin
+        </a>
+        <a data-toggle="modal" href="#deleteAdmin" class="btn btn-primary btn-block">
+            <i class="fa fa-edit"></i>Delete Admin
+        </a>
+    </div>
+</div>
+<div class="modal fade" id="giveAdmin" tabindex="-1" role="dialog" aria-labelledby="giveAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="makeAdminModalLabel"><i class="fa fa-edit"></i> Give admin</h4>
+            </div>
+            <div class="modal-body">
+                <form action="~/Admin/GiveAdmin" class="form-horizontal" data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#status5" id="form0" method="post">
+                    @Html.ValidationSummary(true)
+
+                    @Html.LabelFor(m => m.GiveAdminUsername)
+                    <div>
+                        @Html.TextBoxFor(m => m.GiveAdminUsername, new { @class = "form-control input-sm" })
+                        @Html.ValidationMessageFor(m => m.GiveAdminUsername)
+                    </div>
+                    <br />
+
+
+                    <div id="status5">
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteAdmin" tabindex="-1" role="dialog" aria-labelledby="deleteAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteAdminModalLabel"><i class="fa fa-edit"></i> Delete admin</h4>
+            </div>
+            <div class="modal-body">
+                <form action="~/Admin/DeleteAdmin" class="form-horizontal" data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#status6" id="form0" method="post">
+                    @Html.ValidationSummary(true)
+
+                    @Html.LabelFor(m => m.DeleteAdminUsername)
+                    <div>
+                        @Html.TextBoxFor(m => m.DeleteAdminUsername, new { @class = "form-control input-sm" })
+                        @Html.ValidationMessageFor(m => m.DeleteAdminUsername)
+                    </div>
+                    <br />
+
+
+                    <div id="status6">
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@Scripts.Render("~/bundles/jqueryval")

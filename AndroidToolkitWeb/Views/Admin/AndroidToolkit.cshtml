@@ -1,0 +1,122 @@
+﻿@model AndroidToolkitWeb.Models.AdminPanelViewModel
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#refresh').click(function () {
+            Refresh();
+            $('#AdminContent').load('/Admin/AndroidToolkit');
+        });
+        $('#hide-xml').click(function () {
+            $('#xml').hide(1000);
+            $('#versions-view').removeClass("col-md-6");
+            $('#versions-view').addClass("col-md-12");
+        });
+        function Refresh() {
+            $('#AdminContent').empty();
+            $("<h1>Refreshing... Please wait...</h1>").appendTo('#AdminContent');
+            $("<i></i>").attr('class', 'fa fa-refresh icon-64 fa-spin').appendTo('#AdminContent');
+        };
+    });
+</script>
+<div class="row">
+    <div class="col-md-6" id="versions-view">
+        <div class="col-md-3">
+            <h1 class="pull-center">Versions</h1>
+            <div>
+                <ul class="nav nav-stacked">
+                    @{
+                        foreach (var version in Model.AndroidToolkitVersions)
+                        {
+                            <li>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary"><strong class="pulse">@version.Number</strong></button>
+                                </div>
+
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <br />
+            <button class="btn btn-default btn-block" id="refresh">
+                <i class="fa fa-refresh fa-spin pulse"></i>
+            </button>
+        </div>
+        <div class="col-md-9">
+            <h1 class="pull-center">
+                Table View
+            </h1>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><strong>Number</strong></th>
+                            <th><strong>Download URL</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var version in Model.AndroidToolkitVersions)
+                            {
+                                <tr>
+                                    <td><i class="fa fa-bars"></i></td>
+                                    <td>
+                                        <button class="btn btn-primary"><strong class="pulse">@version.Number</strong></button>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-default" href="@version.Download" target="_blank"><strong class="pulse"><i class="glyphicon glyphicon-cloud-download"></i></strong></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" id="xml">
+        <h1>Versions XML</h1>
+        <div>
+            <textarea class="form-control col-md-12" rows="10">
+                @Model.AndroidToolkitVersionsXML
+            </textarea>
+        </div>
+     
+            <button class="btn btn-danger" id="hide-xml">
+                <i class="fa fa-ban"></i>
+            </button>
+         
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <h1>Attach a new version</h1>
+        @Scripts.Render("~/bundles/jquery")
+        <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+        @using (Ajax.BeginForm("CreateVersion", "Admin", FormMethod.Post, new AjaxOptions() { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "status" }, new { @class = "form-horizontal" }))
+        {
+            @Html.ValidationSummary(true)
+
+            @Html.LabelFor(m => m.NewAndroidToolkitVersion.Number)
+            <div>
+                @Html.EditorFor(m => m.NewAndroidToolkitVersion.Number, new { @class = "form-control input-md" })
+                @Html.ValidationMessageFor(m => m.NewAndroidToolkitVersion.Number)
+            </div>
+            @Html.LabelFor(m => m.NewAndroidToolkitVersion.Download)
+            <div>
+                @Html.TextBoxFor(m => m.NewAndroidToolkitVersion.Download, new { @class = "form-control input-md" })
+                @Html.ValidationMessageFor(m => m.NewAndroidToolkitVersion.Download)
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fa fa-plus"></i>
+            </button>
+            <br />
+        }
+        <div id="status"></div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,4 @@
+﻿User-agent: *
+Disallow: /Views/
+Disallow: /Admin/Panel
+Sitemap: http://www.android-toolkit.somee.com/sitemap.xml

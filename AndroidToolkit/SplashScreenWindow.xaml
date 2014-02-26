@@ -1,0 +1,47 @@
+﻿<controls:MetroWindow x:Class="AndroidToolkit.SplashScreenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="ANDROID TOOLKIT" Height="550" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="Resources/TextStyles.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.60*"/>
+            <RowDefinition Height="0.20*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock x:Name="Title"  Style="{StaticResource ResourceKey=BigTitle}" VerticalAlignment="Center" HorizontalAlignment="Center" ><Run Text="Android Toolkit"/></TextBlock>
+        </Grid>
+        <StackPanel Grid.Row="1">
+            <Grid Width="250" Height="300" Background="#FFD6D6D6" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Grid.OpacityMask>
+                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_os_android}"></VisualBrush>
+                </Grid.OpacityMask>
+                <Rectangle Margin="64,115,64,75" Fill="#FF706D6D">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Grid>
+
+        </StackPanel>
+        <controls:ProgressRing IsActive="True" Grid.Row="2" Width="90" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Margin="20,0,0,0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource TileTitle}"><Run Text="by Gabrijel B."></Run></TextBlock>
+    </Grid>
+</controls:MetroWindow>

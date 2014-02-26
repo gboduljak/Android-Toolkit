@@ -1,0 +1,131 @@
+﻿@model IEnumerable<AndroidToolkitWeb.Models.SearchResult>
+
+@{
+    if (ViewBag.Term.Length != 0)
+    {
+        @Scripts.Render("bundles/jquery")
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".hideResults").click(function () {
+                    $("#searchContainer").hide(1000);
+                    $(".blank").hide(1000);
+                });
+
+
+            });
+        </script>
+        <div class="well blank" style="visibility:hidden"></div>
+        <div class="container-fluid expandUp" id="searchContainer">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span4">
+                    @{
+        if (ViewBag.Style == "Blog")
+        {
+            <div class="metroWellGreen">
+                <div class="icon-search icon-128"></div>
+                <button class="btn btn-inverse hideResults">
+                    <span class="icon-cancel"></span>
+                </button>
+            </div>
+
+        }
+        else
+        {
+            <div class="metroWellLightBlue">
+                <div class="fa fa-search icon-128"></div>
+                <button class="btn hideResults">
+                    <span class="fa fa-times"></span>
+                </button>
+            </div>
+        }
+                    }
+                </div>
+                <div class="span6">
+                    <div class="well-large">
+                        @{
+        if (ViewBag.Style == "Blog")
+        {
+            <h1 style="font-family: 'Comic Sans MS',Calibri; color: #13c97a">Search Results for : <small>@ViewBag.Term</small></h1>
+        }
+        else
+        {
+            <h1>Search Results for : <small>@ViewBag.Term</small></h1>
+        }
+                        }
+
+                        @{
+        foreach (var result in Model)
+        {
+            if (result.Category == SearchResultCategory.BlogPost)
+            {
+                <h3> <a href="~/Blog/Post/Details/@result.DbId/@result.Name" class="post-link"> @result.Name</a></h3>
+            }
+            else if (result.Category == SearchResultCategory.BugReport)
+            {
+                <h3> <a href="~/Feedback/BugReports/Report/Details/@result.DbId/@result.Name" class="post-link"> @result.Name</a></h3>
+            }
+            else
+            {
+                <h3> <a href="~/Feedback/Reviews/Review/@result.DbId/@result.Name" class="post-link"> @result.Name</a></h3>
+            }
+            <h3>Category: <label class="label label-info">@Html.DisplayFor(r => result.Category)</label></h3>
+                            <hr />
+        }
+
+
+                        }
+
+                    </div>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Scripts.Render("~/bundles/jquery")
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".hideError").click(function () {
+                    $(".blank").hide(1000);
+                });
+            });
+        </script>
+        if (ViewBag.Style == "ADMIN")
+        {
+            <div class="well blank" style="visibility:hidden"></div>
+            <div class="alert alert-dissmisable alert-danger fade in pullUp">
+                <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+                <h1 class="pull-center hideError">ERROR</h1>
+                <h2>YOU DIDN'T ENTER THE SEARCH TERM</h2>
+                <div class="col-md-3">
+                    <div class="fa fa-exclamation-triangle icon-128 pull-center marginize pulse" style="padding-bottom:40px"></div>
+                </div>
+
+
+
+            </div>
+        }
+        else
+        {
+            <div class="well blank" style="visibility:hidden"></div>
+            <div class="alert alert-danger fade in pullUp">
+                <a href="#" class="close hideError" data-dismiss="alert" data-transition="fade"></a>
+                <h1 class="pull-center hideError">ERROR</h1>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div class="fa fa-exclamation-triangle icon-128 pull-center marginize pulse" style="padding-bottom:40px"></div>
+                    </div>
+                    <div class="span9">
+                        <h2 class="pull-left">YOU DIDN'T ENTER THE SEARCH TERM</h2>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+
+    }
+}
+

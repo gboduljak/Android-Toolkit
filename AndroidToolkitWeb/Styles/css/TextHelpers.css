@@ -1,0 +1,32 @@
+﻿.pull-center {
+    text-align: center;
+}
+
+.display-inline {
+    display: inline;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.marginize {
+    margin: 7px;
+}
+
+.carousel-center {
+    padding-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.img-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+.item-lightGray {
+    background-color: #eeeeee;
+}
+
+.item-darkGray {
+    background-color: #1b1b1b;
+}

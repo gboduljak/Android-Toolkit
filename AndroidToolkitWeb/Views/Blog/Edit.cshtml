@@ -1,0 +1,201 @@
+﻿@model AndroidToolkitWeb.Entities.BlogPost
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_BlogWriteLayout.cshtml";
+}
+
+@*<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BlogPost</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description)
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Post, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Post)
+                @Html.ValidationMessageFor(model => model.Post)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Img1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Img1)
+                @Html.ValidationMessageFor(model => model.Img1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Img2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Img2)
+                @Html.ValidationMessageFor(model => model.Img2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Img3, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Img3)
+                @Html.ValidationMessageFor(model => model.Img3)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tags, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tags)
+                @Html.ValidationMessageFor(model => model.Tags)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Author, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Author)
+                @Html.ValidationMessageFor(model => model.Author)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date)
+                @Html.ValidationMessageFor(model => model.Date)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+<div class="container-fluid">
+
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="icon-pen icon-128 slideLeft"></div>
+        </div>
+        <div class="span9">
+            <form class="form-horizontal" role="form" action="~/Blog/Post/Edit/@Model.ID/@Model.Name" method="post">
+                <div class="control-group">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m=>m.ID)
+                    @Html.HiddenFor(m=>m.Date)
+                    @Html.HiddenFor(m=>m.Author)
+                    <h1>Create a new blog post.</h1>
+                    <hr />
+                    @Html.ValidationSummary()
+                    <div class="form-group">
+                        <h2>@Html.LabelFor(m => m.Name)</h2>
+                        <div>
+                            @Html.TextBoxFor(m => m.Name, new { @class = "input-xxlarge" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h2>@Html.LabelFor(m => m.Description)</h2>
+                        <blockquote>
+                            Post description
+                        </blockquote>
+                        <div>
+                            @Html.TextAreaFor(m => m.Description)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h2>@Html.LabelFor(m => m.Post)</h2>
+                        <blockquote>
+                            Post content
+                        </blockquote>
+                        <div>
+                            @Html.TextAreaFor(m => m.Post)
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="form-group">
+                                <h2>@Html.LabelFor(m => m.Img1)</h2>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Img1, new { @class = "input-large" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="form-group">
+                                <h2>@Html.LabelFor(m => m.Img2)</h2>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Img2, new { @class = "input-large" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="form-group">
+                                <h2>@Html.LabelFor(m => m.Img3)</h2>
+                                <div>
+                                    @Html.TextBoxFor(m => m.Img3, new { @class = "input-large" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h2>@Html.LabelFor(m => m.Tags)</h2>
+                        <div class="alert alert-info">
+                            <h3>NOTE</h3>
+                            <p>Separate tags with ','</p>
+                        </div>
+                        <div>
+                            @Html.TextBoxFor(m => m.Tags, new { @class = "input-xxlarge" })
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Save" class="btn btn-large" />
+                        <a href="~/Blog/Posts" type="submit" class="btn btn-danger btn-large">
+                            <span class="icon-cancel"></span>
+                        </a>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    CKEDITOR.replace('Post');
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

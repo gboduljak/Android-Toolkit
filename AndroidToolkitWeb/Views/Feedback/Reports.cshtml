@@ -1,0 +1,71 @@
+﻿@model IEnumerable<AndroidToolkitWeb.Entities.BugReport>
+@{
+    ViewBag.Title = "Reports";
+}
+<div class="well" style="visibility:hidden"></div>
+@section seo
+{
+    <meta name="application-name" content="Android Toolkit" />
+    <meta name="author" content="Gabrijel Boduljak" />
+    <meta name="description" content="Android Toolkit Bug Reports" />
+    <meta name="keywords" content="Android Toolkit, Android Toolkit Bug Reports, Android, ADB, Fastboot, Gabrijel Boduljak, recovery, flash" />
+    <meta name="robots" content="INDEX, FOLLOW">
+}
+<div id="nav-bar">
+    <div class="row">
+        <div class="span9">
+            <div id="header-container">
+                <a id="backbutton" class="win-backbutton" href="~/Home/Index"></a>
+                <div class="dropdown">
+                    <h1 class="header-dropdown accent-color">@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="metroWellGreen">
+                <div class="icon-list icon-128"></div>
+                <div class="icon-bug icon-128"></div>
+            </div>
+            <a href="~/Feedback/BugReports/Report" class="btn-large btn-info">
+                REPORT BUG HERE
+            </a>
+        </div>
+        <div class="span9">
+            <div class="well" style="visibility:hidden"></div>
+            @foreach (var report in Model)
+            {
+                <div class="well">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="icon-bug icon-64"></div>
+                        </div>
+                        <div class="span8">
+                            <h2>@report.Name</h2>
+                            <p>
+                                @Html.Raw(report.Description)
+                            </p>
+                            <strong>
+                                Solved:
+                                @if (report.IsSolved)
+                                {
+                                    <i class="icon-checkmark icon-green"></i>
+                                }
+                                else
+                                {
+                                    <i class="icon-cancel icon-red"></i>
+                                }
+                            </strong>
+                            <p class="pull-right">Reported at @report.Date.ToString()</p>
+                     
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

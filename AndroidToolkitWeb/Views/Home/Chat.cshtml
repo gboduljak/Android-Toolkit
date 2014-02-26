@@ -1,0 +1,155 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room - Android Toolkit Web</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="application-name" content="Android Toolkit" />
+    <meta name="author" content="Gabrijel Boduljak" />
+    <meta name="description" content="Android Toolkit is revolutionary Android Device managment tool. ADB, Fastboot, Advanced Tools, Recovery Flasher and so on. Chat room to help everyone." />
+    <meta name="keywords" content="Android Toolkit,Android Toolkit Chat, Chat, Comments, Messages Android, ADB, Fastboot, Gabrijel Boduljak, recovery, flash" />
+    <meta name="robots" content="INDEX, FOLLOW">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" type="text/css">
+    @Styles.Render("~/bundles/admin/css")
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    @Styles.Render("~/Styles/animations")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Helpers/ckeditor/basic/ckeditor.js"></script>
+    <script src="~/Helpers/ckeditor/basic/adapters/jquery.js"></script>
+
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="page-header expandOpen">
+            <h1>Chat Room <small><a href="~/Home/Index">Android Toolkit Web</a></small></h1>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+
+                <i class="fa fa-envelope admin-icon slideRight"></i>
+                <i class="fa fa-pencil admin-icon icon-gray slideRight"></i>
+
+
+                <div class="panel panel-primary pullUp">
+                    <div class="panel-heading">
+                        <i class="fa fa-group"></i> <small>Online Users</small>
+                    </div>
+                    <div class="panel-body">
+                        <label class="label label-primary">
+                            <i class="fa fa-user"></i>
+                            Username: @User.Identity.Name
+                        </label>
+                        <hr />
+                        <blockquote id="user-visits"></blockquote>
+                    </div>
+                </div>
+                <a href="~/Home/Index" class="btn btn-default btn-block">
+                    <i class="fa fa-home"></i>
+                </a>
+            </div>
+            <div class="col-md-6 pullUp">
+                <h2><i class="fa fa-comments"></i>Message:</h2>
+                <div>
+                    <form id="messageForm">
+                        <textarea id="message" class="form-control input-md message" required></textarea>
+                        <input type="hidden" id="displayname" value="@User.Identity.Name" />
+                        <br />
+                        <button type="submit" id="sendmessage" value="Send" class="btn btn-primary btn-block">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </form>
+
+                </div>
+
+
+
+                <script src="~/Scripts/jquery.signalR-2.0.1.js"></script>
+                <script src="/signalr/hubs"></script>
+                <script type="text/javascript">
+
+                    $(function () {
+                        var chat = $.connection.chatHub;
+
+                        chat.client.submitMessage = function (name, message) {
+                            var d = new Date();
+                            var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                            $('#discussion').append('<li style="list-style-type: none;"><strong><i class="fa fa-user"></i>' + htmlEncode(name) + ':' + '</strong><br/>&nbsp;&nbsp;' + '<div class="row"><div class="col-sm-2"><i class="fa fa-comment fa-5x"></i></div> <div class="col-sm-10 well"> ' + htmlEncode(message) + '</div><div class"col-lg-12">' + time + '</div>' + '</li>');
+                        };
+                        $('#message').focus();
+
+                        $.connection.hub.start().done(function () {
+                            $('#sendmessage').click(function () {
+
+                                chat.server.send($('#displayname').val(), $('#message').val());
+                                $('#message').val('').focus();
+                            });
+                        });
+                    });
+                    function htmlEncode(value) {
+                        var encodedValue = $('<div />').text(value).html();
+                        return encodedValue;
+                    }
+                </script>
+                <script type="text/javascript">
+                    $(function () {
+
+
+                        var counter = $.connection.visitCount;
+
+                        $.connection.hub.start().done(function () {
+
+                            counter.server.send();
+                        });
+
+                        counter.client.Visits = function (message) {
+
+                            $('#user-visits').text(message);
+                        };
+
+                    });
+                </script>
+            </div>
+            <div class="col-md-2">
+                <a href="~/Home/Index">
+                    <img alt="logo" src="~/img/logo.png" class="img-responsive" />
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <br />
+                <hr />
+                <h2>Chat Feed</h2>
+                <ul id="discussion"></ul>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <footer>
+        <div class="container pullDown">
+            <div class="row">
+                <div class="col-lg-4">
+                    <a href="~/Home/Author" class="btn btn-default btn-large btn-block"><span class="fa fa-code"></span>Gabrijel Boduljak</a>
+                    <button class="btn btn-primary btn-block">
+                        <strong>&copy;@DateTime.Now.Year - Android Toolkit</strong>
+                    </button>
+
+                    <br>
+                </div>
+                <div class="col-lg-8">
+                    <h4>Android Toolkit Chat Room, Android Toolkit Web CMS v1.1</h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>

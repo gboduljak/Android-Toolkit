@@ -1,0 +1,46 @@
+﻿/*.field-validation-error {
+    color: #ff0000;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000; 
+     border: 1px solid #ff0000;
+}*/
+
+.validation-summary-errors
+{
+  /* alert classes */
+
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+
+  /* alert danger classes */
+  color: white;
+  background-color:#f22727;
+  border-color: red;
+
+}
+
+.field-validation-error
+{
+  /* label classes */
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+
+  /* label danger classes */
+  background-color: red;
+}

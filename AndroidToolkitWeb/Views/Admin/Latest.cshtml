@@ -1,0 +1,227 @@
+﻿@model AndroidToolkitWeb.Models.AdminPanelViewModel
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.showAll').click(function () {
+            $('#cms-list').removeClass("hide");
+        });
+        $('#refresh').click(function () {
+            Refresh();
+            $('#AdminContent').load('/Admin/Latest');
+        });
+        $('#hide-bug-reports').click(function () {
+            $('#bug-reports').hide(1000);
+        });
+        $('#hide-reviews').click(function () {
+            $('#reviews').hide(1000);
+        });
+        $('#hide-blog-posts').click(function () {
+            $('#blog-posts').hide(1000);
+        });
+
+        function Refresh() {
+            $('#AdminContent').empty();
+            $("<h1>Refreshing... Please wait...</h1>").appendTo('#AdminContent');
+            $("<i></i>").attr('class', 'fa fa-refresh icon-64 fa-spin').appendTo('#AdminContent');
+        };
+    });
+</script>
+
+<div class="row">
+    @{
+        if (ViewBag.LatestReview != null)
+        {
+            <div class="col-md-4">
+                <h2>Latest REVIEW</h2>
+                <div class="well-small">
+                    <h3>Name:<a href="~/Feedback/Reviews/Review/@ViewBag.LatestReview.ID/@ViewBag.LatestReview.Name"><small>@ViewBag.LatestReview.Name</small></a></h3>
+                    <br />
+                    <h3><span class="fa fa-calendar"></span><small>@ViewBag.LatestReview.Date</small></h3>
+                    <br />
+                    <h3><span class="fa fa-user"></span><small>@ViewBag.LatestReview.Author</small></h3>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">NO REVIEWS IN DB</div>
+        }
+        if (ViewBag.LatestBugReport != null)
+        {
+
+            <div class="col-md-4">
+                <h2>Latest BUG REPORT</h2>
+                <div class="well-small">
+                    <h3>Name:<a href="~/Feedback/BugReports/BugReport/@ViewBag.LatestBugReport.ID/@ViewBag.LatestBugReport.Name"><small>@ViewBag.LatestBugReport.Name</small></a></h3>
+                    <br />
+                    <h3><span class="fa fa-calendar"></span><small>@ViewBag.LatestBugReport.Date</small></h3>
+                    <br />
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">NO BUG REPORTS IN DB</div>
+        }
+        if (ViewBag.LatestBlogPost != null)
+        {
+            <div class="col-md-4">
+                <h2>Latest BLOG POST</h2>
+                <div class="well-small">
+                    <h3>Name:<a href="~/Blog/Post/Details/@ViewBag.LatestBlogPost.ID/@ViewBag.LatestBlogPost.Name"><small>@ViewBag.LatestBlogPost.Name</small></a></h3>
+                    <br />
+                    <h3><span class="fa fa-calendar"></span><small>@ViewBag.LatestBlogPost.Date</small></h3>
+                    <br />
+                    <h3><span class="fa fa-user"></span><small>@ViewBag.LatestBlogPost.Author</small></h3>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">NO BLOG POSTS IN DB</div>
+
+        }
+
+        <button id="view-all" type="button" class="btn btn-primary btn-large showAll">
+            <i class="fa fa-tasks"></i>
+        </button>
+    }
+</div>
+
+<hr />
+<div class="row hide" id="cms-list">
+    <div class="col-md-3 panel panel-primary">
+        <div class="panel-heading">
+            <h3>Bug Report solved</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1">
+                    <i class="fa fa-edit icon-64"></i>
+                </div>
+                <div class="col-md-11">
+                    @Scripts.Render("~/bundles/jquery")
+                    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+                    <form action="~/Admin/MakeBugReportSolved" class="form-horizontal" data-ajax="true" data-ajax-method="Get" data-ajax-mode="replace" data-ajax-update="#status" id="form0" method="post">
+                        <div class="control-group">
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.BugReportID)
+                                @Html.ValidationMessageFor(m=>m.BugReportID)
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="status">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-4" id="bug-reports">
+                <h3>Bug Reports</h3>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Solved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.BugReports)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td><a href="~/Feedback/BugReports/BugReport/@item.ID/@item.Name">@item.Name</a></td>
+                                <td>@Html.Raw(item.Description)</td>
+                                @if (item.IsSolved)
+                                {
+                                    <td>
+                                        <i class="fa fa-check-circle icon-green"></i>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td>
+                                        <i class="fa fa-ban icon-red"></i>
+                                    </td>
+
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" id="hide-bug-reports" class="btn btn-danger btn-mini">
+                    <i class="fa fa-minus-circle"></i>
+                </button>
+            </div>
+            <div class="col-md-4" id="reviews">
+                <h3>Reviews</h3>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Reviews)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td><a href="~/Feedback/Reviews/Review/@item.ID/@item.Name">@item.Name</a></td>
+                                <td>@item.Rating</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" id="hide-reviews" class="btn btn-danger btn-mini">
+                    <i class="fa fa-minus-circle"></i>
+                </button>
+            </div>
+            <div class="col-md-4" id="blog-posts">
+                <h3>Blog Posts</h3>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.BlogPosts)
+                        {
+                            <tr>
+                                <td>@item.ID</td>
+                                <td><a href="~/Blog/Post/Details/@item.ID/@item.Name">@item.Name</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+       
+                    <button type="button" id="hide-blog-posts" class="btn btn-danger btn-mini">
+                        <i class="fa fa-minus-circle"></i>
+                    </button>
+                 
+       
+              
+            </div>
+        </div>
+    </div>
+
+    <button type="button" id="refresh" class="btn btn-primary btn-large">
+        <i class="fa fa-refresh fa-spin pulse"></i>
+    </button>
+</div>
+@Scripts.Render("~/bundles/jqueryval")

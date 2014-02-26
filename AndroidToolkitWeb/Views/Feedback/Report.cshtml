@@ -1,0 +1,93 @@
+﻿@model AndroidToolkitWeb.Entities.BugReport
+@{
+    ViewBag.Title = "Create BUG Report";
+}
+
+<div class="well" style="visibility:hidden"></div>
+
+<div id="nav-bar">
+    <div class="row">
+        <div class="span9">
+            <div id="header-container">
+                <a id="backbutton" class="win-backbutton" href="~/Home/Index"></a>
+                <div class="dropdown">
+                    <h1 class="header-dropdown accent-color">@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="icon-pen icon-128"></div>
+            <div class="icon-bug icon-128"></div>
+        </div>
+        <div class="span6">
+            <form method="post" action="~/Feedback/BugReports/Report" class="form-horizontal" role="form">
+                @Html.AntiForgeryToken()
+                <h3>Create a new bug report.</h3>
+                <hr />
+                <div class="control-group">
+                    <p class="text-error">
+                        @Html.ValidationSummary()
+                    </p>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name)
+                        <div>
+                            @Html.TextBoxFor(m => m.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description)
+                        <div>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "description" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ErrorLog)
+                        <div>
+                            @Html.TextAreaFor(m => m.ErrorLog)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default" value="Create" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="span3">
+            <h2>REQUIRED</h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li>
+                    <button class="btn-block">NAME</button>
+                </li>
+                <li>
+                    <button class="btn-block">ERROR LOG</button>
+                </li>
+
+                <li>
+                    <button class="btn-block">DESCRIPTION</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script>
+    tinymce.init({ selector: "textarea.description" });
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

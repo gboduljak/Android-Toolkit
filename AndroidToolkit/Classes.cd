@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AndroidToolkit.ADBTools" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>moXkUgm5DTqlaQZEjgFjQqGEx4MGVOyPFGKCYRARyfA=</HashCode>
+      <FileName>ADBTools.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Admin" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAxQhAAQgAAAkCGA6QhQAMQAQAICgILCAACCAAMBIQg=</HashCode>
+      <FileName>Admin.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.AdminLoger" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAQCAAAAAAAAAAAAAAIAAAEAAAA=</HashCode>
+      <FileName>AdminLoger.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.AdvancedTools" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAAEgAQIihqAYEIAAwFAAIhFIgAWgIkBAICiCIAAAiA=</HashCode>
+      <FileName>Advanced.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.AndroidToolkitDB" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAQAAUAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AndroidToolkitDB.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Device" Collapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAABAgAAAAAAAggQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Device.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.HelpText" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>HelpText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.App" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.DeviceConnection" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAggAAEACAAABQAIAAABAAAEIAAAACgAAAAAAA=</HashCode>
+      <FileName>DeviceConnection.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.DeviceRestore" Collapsed="true">
+    <Position X="7.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQCABCgAAAAAAAQEAAAEAAEAIAAAACFAAAAAAA=</HashCode>
+      <FileName>DeviceRestore.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.DeviceWindow" Collapsed="true">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAIgBFAECGAAEAAAKAhEBAAEFIABIACAAAAAAAA=</HashCode>
+      <FileName>DeviceWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.FastbootTools" Collapsed="true">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CUlBD4PIj1rnAoRe3QD7IEiJE6FuP4cLWSjQMS0eiDc=</HashCode>
+      <FileName>FastbootTools.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Help" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgEEQAAAAAAAAAACAQAEAAAAgAICAAACgALIgAAA=</HashCode>
+      <FileName>Help.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.MainWindow" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ESQAEAEhACAEAGAACAAAIQkABAAAEIAACQyEBCUAICA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.RecoveryMaster" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAIgQAAYBCGCAAASAABIAAAAAAEiACAQBCAAQEAAAA=</HashCode>
+      <FileName>RecoveryMaster.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.ReportBugInterop" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAA=</HashCode>
+      <FileName>ReportBugInterop.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.SplashScreenWindow" Collapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SplashScreenWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.ZipFlasher" Collapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAQACAAACEABBAAAAAAAEAQQAAAIABABiEQAAAQAA=</HashCode>
+      <FileName>ZipFlasher.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.Admin.AdminManager" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAgAAAEAAIAAAAEAEAAhACgAEAAAAAAAA=</HashCode>
+      <FileName>Helpers\Admin\AdminManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.ConnectionChecker" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ConnectionChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.DatabaseBackup" Collapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\DatabaseBackup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.Dialoger" Collapsed="true">
+    <Position X="11.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Helpers\Dialoger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.MetroMessageBox" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\MetroMessageBox.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.MetroMessageBoxHelper" Collapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\MetroMessageBoxHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.StringLinesRemover" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\StringLinesRemover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.UpdateManager" Collapsed="true">
+    <Position X="13" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAABAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\UpdateManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Helpers.Devices.DeviceManager" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAEAgAACAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\Devices\DeviceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Properties.Resources" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AndroidToolkit.Properties.Settings" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,555 @@
+﻿<Controls:MetroWindow x:Class="AndroidToolkit.ADBTools"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Android Toolkit - ADB Tools" Height="560" Width="1000" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
+        ShowIconOnTitleBar="true">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="Resources/TextStyles.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+                <ResourceDictionary Source="Resources/CustomButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="StartADB" Foreground="Gray" Content="START ADB" Click="StartADB_Click" />
+            <Button x:Name="KillADB"  Foreground="Gray" Content="KILL ADB" Click="KillADB_Click" />
+            <Button x:Name="Settings" Click="Settings_Click" >
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_settings}" Stretch="Fill"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_os_android}" Stretch="Fill"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="ADBFlyout" IsOpen="False" Background="#9f000000">
+                <Grid>
+                    <StackPanel>
+                        <Rectangle Fill="#FF41B1E1" Width="80" Height="80">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_alert}" Stretch="Fill" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <ScrollViewer  Width="300" Height="300" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Margin="20">
+                            <TextBlock TextWrapping="Wrap" x:Name="FlyoutText"></TextBlock>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="ADBFlyout2" Header=""  Position="Right">
+                <StackPanel>
+                    <Rectangle Fill="#FF41B1E1" Width="100" Height="100">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_box}" Stretch="Fill" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBox Margin="20" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Width="298" Height="300" x:Name="FlyoutText2"/>
+                </StackPanel>
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="UISettingsFlyout" Header="UI Settings" Position="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="30*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="20">
+                        <TextBlock Margin="10" Text="Make it your. ;)" TextWrapping="Wrap" Style="{StaticResource TileTitle}"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="20">
+                        <DockPanel>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Text="SELECT ACCENT" TextWrapping="Wrap" Style="{StaticResource TileTitle}"/>
+                            <ComboBox VerticalAlignment="Center" x:Name="Accents" SelectionChanged="Accents_SelectionChanged"/>
+                        </DockPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Column="2" Margin="10">
+                        <Button Width="60" Height="60"  Style="{StaticResource MetroCircleButtonStyle}" x:Name="ChangeAccent" Click="ChangeAccent_Click">
+                            <Controls:MetroImage Width="40" Height="40" Source="{StaticResource appbar_check}"/>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="RemoteAdbFlyout" Header="REMOTE ADB" Position="Right">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.50*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.50*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Controls:MetroImage Margin="20" Width="128" Height="128" Grid.Column="0"  VerticalAlignment="Top" HorizontalAlignment="Center" Source="{DynamicResource appbar_rss}"/>
+                    <StackPanel Margin="20" Grid.Column="1">
+                        <GroupBox Header="SET UP">
+                            <StackPanel Margin="10">
+                                <TextBox Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.SelectAllOnFocus="True" Controls:TextboxHelper.Watermark="ENTER DEVICE PORT" x:Name="TargetDevicePort" Margin="0,5,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <TextBox Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.SelectAllOnFocus="True" Controls:TextboxHelper.Watermark="ENTER DEVICE IP" x:Name="TargetDeviceIP" Margin="0,5,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Margin="0,0,1,0" x:Name="ApplyRemoteADB" Grid.Column="0" HorizontalAlignment="Left" Foreground="#FF706D6D" Click="ApplyRemoteADB_Click" MinWidth="200" >
+                                        <Rectangle Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="#FF706D6D">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_radar}"/>
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </Button>
+                                    <Button Margin="1,0,0,0" x:Name="KillRemoteADB" Grid.Column="1" Foreground="#FF706D6D" HorizontalAlignment="Left" Click="KillRemoteADB_OnClick" MinWidth="200" >
+                                        <Rectangle Width="30" Height="30" VerticalAlignment="Center" Fill="#FF706D6D">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}"/>
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </Button>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <GroupBox Grid.Column="0" Header="SAVE IP">
+                                        <StackPanel>
+                                            <TextBox Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.SelectAllOnFocus="True" Controls:TextboxHelper.Watermark="ENTER DEVICE IP" x:Name="SaveDeviceIP" Margin="0,5,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <TextBox Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.SelectAllOnFocus="True" Controls:TextboxHelper.Watermark="ENTER DEVICE NAME" x:Name="SaveDeviceName" Margin="0,5,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <Button x:Name="SaveIPButton" Style="{DynamicResource MetroAccentButton}" Click="SaveIPButton_Click">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Grid.Column="1" Header="IP List">
+                                        <StackPanel>
+                                            <ListView x:Name="IPListView" MinWidth="250" MaxHeight="250">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <WrapPanel>
+                                                            <Rectangle Width="18" Height="28" Margin="10">
+                                                                <Rectangle.Fill>
+                                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_list1}" />
+                                                                </Rectangle.Fill>
+                                                            </Rectangle>
+                                                            <TextBlock Text="IP: " />
+                                                            <TextBlock Text="{Binding DeviceIP}" FontWeight="Bold" />
+                                                            <TextBlock Text=", " />
+                                                            <TextBlock Text="Name: " />
+                                                            <TextBlock Text="{Binding DeviceName}" FontWeight="Bold" />
+                                                        </WrapPanel>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+
+                                            </ListView>
+                                            <Button x:Name="RefreshIPButton" Style="{DynamicResource MetroAccentButton}" Margin="0,0,0,5">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_refresh}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="DeleteIPsButton" Style="{DynamicResource MetroAccentButton}">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </Grid>
+                            </StackPanel>
+                        </GroupBox>
+                        <Button x:Name="RemoteADBHelp" Foreground="#FF706D6D" Margin="0,0,0,5">
+                            <DockPanel>
+                                <Rectangle Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Fill="#FF706D6D">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_lines_horizontal_4}"/>
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <TextBlock Foreground="#FF706D6D" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="10,0,0,0">HELP?</TextBlock>
+                            </DockPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="MultipleAdbFlyout" Header="Multiple Devices" Position="Right">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.50*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.50*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Controls:MetroImage Margin="20" Width="128" Height="128" Grid.Column="0"  VerticalAlignment="Top" HorizontalAlignment="Center" Source="{DynamicResource appbar_list1}"/>
+                    <StackPanel Margin="20" Grid.Column="1">
+                        <Rectangle Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="#FF706D6D">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_barcode}"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+
+                        <GroupBox Header="SET UP">
+                            <StackPanel Margin="10">
+                                <TextBox Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.SelectAllOnFocus="True" Controls:TextboxHelper.Watermark="ENTER DEVICE ID" x:Name="TargetDeviceID" Margin="0,5,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <Button Width="100" x:Name="ApplyMultipleADB" HorizontalAlignment="Left"  Foreground="#FF706D6D" Click="ApplyMultipleADB_Click">
+                                    <Rectangle Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="#FF706D6D">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_check}"/>
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                                <Button Width="100" x:Name="UndoMultipleADB" HorizontalAlignment="Left"  Foreground="#FF706D6D" Click="UndoMultipleADB_Click" Margin="0,1,0,0">
+                                    <Rectangle Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="#FF706D6D">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_undo}"/>
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </StackPanel>
+                        </GroupBox>
+
+                    </StackPanel>
+                </Grid>
+            </Controls:Flyout>
+
+        </Controls:FlyoutsControl>
+
+    </Controls:MetroWindow.Flyouts>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="Title" Grid.Column="0">
+            <StackPanel Margin="20">
+                <DockPanel>
+                    <StackPanel>
+
+                        <TextBlock x:Name="TitleBig1" Style="{StaticResource ResourceKey=BigTitle}" Margin="20"><Run Text="Android Toolkit"/></TextBlock>
+                    </StackPanel>
+
+                    <Grid Margin="60,0,10,0">
+                        <Rectangle Margin="10" Width="80" Height="80" Fill="{DynamicResource AccentColorBrush}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+
+                    </Grid>
+                    <TextBlock x:Name="TitleBig_Copy" Style="{StaticResource ResourceKey=BigTitle2}" Text="ADB " Height="65"/>
+
+                </DockPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="Content" Grid.Column="0" Grid.Row="1" Margin="10">
+            <Rectangle Width="234" Height="123" Visibility="Collapsed">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_rss}" Stretch="Fill"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Width="234" Height="123" Visibility="Collapsed">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_barcode}" Stretch="Fill"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Width="234" Height="123" Visibility="Collapsed">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_list1}" Stretch="Fill"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Width="234" Height="123" Visibility="Collapsed">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_undo}" Stretch="Fill"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <DockPanel>
+                <TabControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,20,0,0" Width="643" Height="Auto" x:Name="TabControl">
+                    <TabItem Header="Push/Pull">
+                        <Grid>
+                            <DockPanel>
+                                <GroupBox Header="Push" Width="300">
+                                    <Grid>
+                                        <StackPanel>
+                                            <Button x:Name="PushChooseButton" Margin="0,0,0,5"  Foreground="Gray" Click="PushChooseButton_Click"  Style="{StaticResource MetroAccentButton}">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <TextBox x:Name="PushLocation" Controls:TextboxHelper.Watermark="Enter location here" Controls:TextboxHelper.ClearTextButton="True" Margin="0,0,0,5"></TextBox>
+                                            <Button x:Name="PushButton" Content="Push" Margin="0,0,0,5" Foreground="Gray" Click="PushButton_Click"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Pull" >
+                                    <StackPanel>
+                                        <TextBox x:Name="PullFile1" Controls:TextboxHelper.Watermark="FILE1" Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+                                        <TextBox x:Name="PullFile2" Controls:TextboxHelper.Watermark="FILE2" Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+                                        <TextBox x:Name="PullFile3" Controls:TextboxHelper.Watermark="FILE3" Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+                                        <TextBox x:Name="PullFile4" Controls:TextboxHelper.Watermark="FILE4" Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+                                        <TextBox x:Name="PullFile5" Controls:TextboxHelper.Watermark="FILE5" Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+                                        <DockPanel>
+                                            <Button x:Name="PullButton" Margin="0,5,0,5" Style="{StaticResource MetroAccentButton}" Click="PullChooseLocation">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button Margin="5,5,0,5" x:Name="ChooseLocation" Content="Pull"  Foreground="Gray" Click="PullButton_Click"/>
+                                        </DockPanel>
+
+                                    </StackPanel>
+                                </GroupBox>
+
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Copy/Move/Delete">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.33*"/>
+                                <ColumnDefinition Width="0.33*"/>
+                                <ColumnDefinition Width="0.33*"/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Grid.Column="0" Header="Copy">
+                                <StackPanel Margin="10">
+                                    <TextBox x:Name="CopyFrom" Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.Watermark="ENTER 'FROM' PATH "/>
+                                    <TextBox x:Name="CopyTo" Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.Watermark="ENTER 'TO' PATH "/>
+                                    <Button x:Name="Copy" Click="Copy_Click">
+                                        <Controls:MetroImage Source="{StaticResource appbar_check}"/>
+                                    </Button>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Grid.Column="1" Header="Move">
+                                <StackPanel Margin="10">
+                                    <TextBox x:Name="MoveFrom" Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.Watermark="ENTER 'FROM' PATH "/>
+                                    <TextBox x:Name="MoveTo" Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.Watermark="ENTER 'TO' PATH "/>
+                                    <Button x:Name="Move" Click="Move_Click">
+                                        <Controls:MetroImage Source="{StaticResource appbar_check}"/>
+                                    </Button>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Grid.Column="2" Header="Delete">
+                                <StackPanel Margin="10">
+                                    <TextBox x:Name="DeletePath" Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.Watermark="ENTER 'DELETE' PATH "/>
+                                    <Button x:Name="Delete" Click="Delete_Click">
+                                        <Controls:MetroImage Source="{StaticResource appbar_check}"/>
+                                    </Button>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Install/Remove App">
+                        <Grid>
+                            <DockPanel>
+                                <GroupBox Header="Install" Width="300">
+                                    <Grid>
+                                        <StackPanel>
+                                            <Controls:ToggleSwitch x:Name="InstallSystemApp" Content="System App?" Background="#FF363636" Foreground="Gray" Checked="InstallSystemApp_Checked" Unchecked="InstallSystemApp_Unchecked"/>
+                                            <Button Margin="0,0,0,5" x:Name="InstallChooseButton"  Click="InstallChooseButton_Click"   Style="{StaticResource MetroAccentButton}">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="InstallButton" Content="Install" Foreground="Gray" Click="InstallButton_Click"/>
+
+
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Delete">
+                                    <StackPanel>
+                                        <Controls:ToggleSwitch x:Name="UninstallSystemApp" Content="System App?" Background="#FF363636" Foreground="Gray" Checked="UninstallSystemApp_Checked" Unchecked="UninstallSystemApp_Unchecked"/>
+                                        <TextBox x:Name="DeleteAppName" Controls:TextboxHelper.ClearTextButton="True"></TextBox>
+                                        <Button  Margin="0,5,0,5" x:Name="DeleteButton" Style="{StaticResource MetroAccentButton}" Foreground="Gray" Click="DeleteButton_Click">
+                                            <Rectangle Width="24" Height="22">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </Button>
+                                        <Button x:Name="ListApps" VerticalAlignment="Top" Style="{DynamicResource MetroCircleButtonStyle}" Width="90" Height="90" Margin="104,0,103,0" Click="ListApps_Click">
+                                            <StackPanel Orientation="Vertical">
+                                                <Rectangle Width="45" Height="45">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_barcode}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <TextBlock Text="LIST APPS" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </GroupBox>
+
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Sideload">
+                        <Grid>
+                            <DockPanel>
+                                <GroupBox Header="Sideload" Width="250" Margin="5,5,5,0" >
+                                    <Grid>
+                                        <StackPanel>
+                                            <Controls:Tile x:Name="ChooseSideloadButton"  Click="ChooseSideloadButton_Click">
+                                                <StackPanel>
+                                                    <Rectangle Width="64" Height="64">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}"></VisualBrush>
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </StackPanel>
+                                            </Controls:Tile>
+                                            <Button x:Name="SideloadButton" Content="Sideload" Background="#FF363636" Foreground="Gray" Click="SideloadButton_Click"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+
+
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Execute commands">
+                        <Grid>
+                            <DockPanel>
+                                <GroupBox Header="Execute Commands" >
+                                    <Grid>
+                                        <DockPanel>
+                                            <StackPanel>
+                                                <TextBox  Margin="0,0,0,5" x:Name="Command1" Controls:TextboxHelper.Watermark="COMMAND1" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox  Margin="0,0,0,5" x:Name="Command2" Controls:TextboxHelper.Watermark="COMMAND2" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox  Margin="0,0,0,5" x:Name="Command3" Controls:TextboxHelper.Watermark="COMMAND3" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox   Margin="0,0,0,5" x:Name="Command4" Controls:TextboxHelper.Watermark="COMMAND4" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox  Margin="0,0,0,5" x:Name="Command5" Controls:TextboxHelper.Watermark="COMMAND5" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBox Margin="0,0,0,5" x:Name="Command6" Controls:TextboxHelper.Watermark="COMMAND6" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox  Margin="0,0,0,5" x:Name="Command7" Controls:TextboxHelper.Watermark="COMMAND7" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox   Margin="0,0,0,5" x:Name="Command8" Controls:TextboxHelper.Watermark="COMMAND8" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox   Margin="0,0,0,5" x:Name="Command9" Controls:TextboxHelper.Watermark="COMMAND9" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox  Margin="0,0,0,5" x:Name="Command10" Controls:TextboxHelper.Watermark="COMMAND10" Foreground="Gray" Width="148" Controls:TextboxHelper.ClearTextButton="True"/>
+                                            </StackPanel>
+                                        </DockPanel>
+
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Output" Width="250" >
+                                    <Grid>
+                                        <StackPanel>
+                                            <Controls:Tile x:Name="ExecuteCommands"  Click="ExecuteCommands_Click">
+                                                <StackPanel>
+                                                    <Rectangle Width="64" Height="64">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}"></VisualBrush>
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </StackPanel>
+                                            </Controls:Tile>
+
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+
+
+
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
+
+        </Grid>
+
+        <Grid x:Name="ControlsTop" Grid.Column="1" Grid.Row="0">
+            <StackPanel>
+                <Menu x:Name="DeviceMenu" HorizontalAlignment="Left"  VerticalAlignment="Top" >
+                    <MenuItem Header="DEVICE INFO" >
+                        <Button x:Name="DeviceName" Content="Name" Width="124" Click="DeviceName_Click" Foreground="White" Background="#FF41B1E1" BorderBrush="#FF41B1E1" />
+                        <Button x:Name="AndroidVersion" Content="OS Version" HorizontalAlignment="Left" VerticalAlignment="Top" Width="124" Click="AndroidVersion_Click" Background="#FF41B1E1" BorderBrush="#FF41B1E1" Foreground="White" />
+                        <Button x:Name="Hardware" Content="Hardware" HorizontalAlignment="Left" VerticalAlignment="Top" Width="124" Click="Hardware_Click" Background="#FF41B1E1" BorderBrush="#FF41B1E1" Foreground="White" />
+                        <Button x:Name="DeviceInfoButton" Background="#FF6C6C6C" Content="build.prop" Foreground="White" Click="DeviceInfoButton_Click" Width="124"/>
+                    </MenuItem>
+                    <MenuItem Header="SETTINGS" >
+                        <Button Click="RemoteADB_OnClick" Content="REMOTE CONTROL" x:Name="RemoteADB"/>
+                        <Button x:Name="TargetToSingleDevice" Click="OpenMultipleDevices" Content="MULTIPLE DEVICES ?"/>
+                    </MenuItem>
+
+                </Menu>
+
+                <Controls:ToggleSwitch Header="Light Theme" Checked="ToggleSwitch_Checked" Unchecked="ToggleSwitch_Unchecked"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ContentRight" Grid.Column="1" Grid.Row="1">
+            <StackPanel Margin="0,0,20,0">
+                <Label Content="REBOOT" Style="{StaticResource ResourceKey=HeaderTextBlockStyleLabel}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <DockPanel>
+                    <StackPanel>
+                        <Button x:Name="RebootButton" Content="Reboot" Foreground="Gray"  Click="RebootButton_Click" Margin="0,0,0,5"/>
+                        <Button x:Name="RebootRecoveryButton" Content="Reboot Recovery" Foreground="Gray"  Click="RebootRecoveryButton_Click" Margin="0,0,0,5"/>
+                        <Button x:Name="RebootBootloaderButton" Content="Reboot Bootloader" Foreground="Gray"   Click="RebootBootloaderButton_Click" Margin="0,0,0,5"/>
+                    </StackPanel>
+                    <Controls:ProgressRing IsActive="True"></Controls:ProgressRing>
+
+                </DockPanel>
+                <DockPanel>
+                    <StackPanel>
+                        <Label Content="STATUS" Style="{StaticResource ResourceKey=HeaderTextBlockStyleLabel}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <Controls:ToggleSwitch x:Name="CreateWindowCheckBox" Content="Hide CMD" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CreateWindowCheckBox_Checked" Unchecked="CreateWindowCheckBox_UnChecked" Width="168"/>
+                        <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Height="75" MaxWidth="169">
+                            <TextBlock TextWrapping="Wrap"  x:Name="OutputBlock"/>
+                        </ScrollViewer>
+                        <TextBox x:Name="ExecuteOneCommandText"  Controls:TextboxHelper.ClearTextButton="True" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Controls:TextboxHelper.Watermark="Enter Command Text here"/>
+                        <Button HorizontalAlignment="Left" Style="{StaticResource ResourceKey=SquareButtonStyle}" x:Name="ExecuteOneCommand" Content="Execute" Foreground="Gray" Click="ExecuteOneCommand_Click" Width="169"/>
+                    </StackPanel>
+                    <Rectangle Width="64" Height="64" Fill="#FFD6D6D6">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_vector_pen}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </DockPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="0" Width="Auto" Height="10" Grid.Row="2">
+            <Rectangle Fill="{DynamicResource AccentColorBrush}"></Rectangle>
+        </Grid>
+        <Grid Grid.Column="1" Width="Auto" Height="10" Grid.Row="2">
+            <Rectangle Fill="{DynamicResource AccentColorBrush}"></Rectangle>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

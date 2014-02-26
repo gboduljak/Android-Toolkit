@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Android Toolkit Blog</title>
+    @*<link href='http://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>*@
+    @Styles.Render("~/Styles/global")
+    @Styles.Render("~/Styles/blog")
+    @Styles.Render("~/Styles/animations")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/signalr/hubs")
+    <script src="~/Helpers/ckeditor/ckeditor.js"></script>
+    <link href="~/Styles/css/TextHelpers.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(window).scroll(function () {
+            $('.post').each(function () {
+                var imagePos = $(this).offset().top;
+                var topOfWindow = $(window).scrollTop();
+                if (imagePos < topOfWindow + 400) {
+                    $(this).addClass("pullUp");
+                }
+            });
+        });
+
+    </script>
+    <script>
+        $('.post').click(function () {
+            $(this).addClass("pullUp");
+        });
+    </script>
+</head>
+
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.signalR-2.0.1.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script type="text/javascript">
+        $(function () {
+
+
+            var counter = $.connection.visitCount;
+
+            $.connection.hub.start().done(function () {
+
+                counter.server.send();
+            });
+
+
+            counter.client.Visits = function (message) {
+
+                $('#user-visits').text(message);
+            };
+
+        });
+    </script>
+
+
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <a class="brand" href="~/Blog/Posts">Android Toolkit Blog</a>
+
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="~/Home/Index">Home</a></li>
+                        <li><a href="~/Blog/Posts"><span class="icon-back"></span></a></li>
+
+                    </ul>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span1">
+        </div>
+        <div class="span10">
+            <div id="bannerTop" class="metroWellGreenTopFix expandOpen">
+                <div class="icon-pencil icon-128"></div>
+            </div>
+        </div>
+        <div class="span1"></div>
+    </div>
+    <div id="nav-bar" class="expandUp">
+        <div class="row">
+            <div class="span9">
+                <div id="header-container">
+                    <a id="backbutton" class="win-backbutton" href="~/Home/Index"></a>
+                    <div class="dropdown">
+                        <h1 class="header-dropdown accent-color" style="font-family: 'Comic Sans MS',Calibri; color: #13c97a">@ViewBag.Title</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        @RenderBody()
+        <hr />
+        <footer class=".post-footer pullDown">
+            <div class="metroWellGreen">
+                <div class="row">
+                    <div class="span2">
+                        <a href="~/Home/Author" class="btn btn-large btn-info"><span class="icon-code-2" />Gabrijel Boduljak</a>
+                        <button class="btn btn-inverse">
+                            <strong>&copy;@DateTime.Now.Year - Android Toolkit</strong>
+                        </button>
+                        <a href="#bannerTop" class="btn btn-inverse">
+                            <span class="icon-arrow-up-7"></span>
+                            Top
+                        </a>
+                    </div>
+                    <div class="span10">
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <br />
+                                <a href="https://www.facebook.com/gboduljak" class="btn btn-inverse btn-block" target="_blank">
+                                    <span class="icon-facebook"></span>
+                                </a>
+                                <a href="https://twitter.com/gboduljak" class="btn btn-inverse btn-block" target="_blank">
+                                    <span class="icon-twitter"></span>
+                                </a>
+
+                                <a href="https://plus.google.com/u/0/107143472008987249570/" class="btn btn-inverse btn-block" target="_blank">
+                                    <span class="icon-google-plus"></span>
+                                </a>
+
+                            </div>
+                            <div class="span8">
+                                <h2 class="pulse">Welcome, @User.Identity.Name</h2>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/global")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

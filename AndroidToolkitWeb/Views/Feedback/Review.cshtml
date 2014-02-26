@@ -1,0 +1,81 @@
+﻿@model AndroidToolkitWeb.Entities.Review
+@{
+    ViewBag.Title = "Review";
+    var review = Model;
+}
+<div class="well" style="visibility:hidden"></div>
+<div id="nav-bar">
+    <div class="row">
+        <div class="span9">
+            <div id="header-container">
+                <a id="backbutton" class="win-backbutton" href="~/Home/Index"></a>
+                <div class="dropdown">
+                    <h1 class="header-dropdown accent-color">@ViewBag.Title - @Model.Name</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="well">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h2>@review.Name</h2>
+                        <h3>Review Description</h3>
+                        <p>
+                            @Html.Raw(review.RatingDescription)
+                        </p>
+                        <div class="row-fluid">
+                            <h3>Rating: </h3>
+                            @switch (review.Rating)
+                            {
+                                case 1:
+                                    <div>
+                                        <span class="icon-star icon-32 icon-yellow"></span>
+                                    </div>
+                                    break;
+                                case 2:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                    break;
+                                case 3:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                    break;
+                                case 4:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                    break;
+                                case 5:
+                                <div>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                    <span class="icon-star icon-32 icon-yellow"></span>
+                                </div>
+                                    break;
+                            }
+                        </div>
+                        <p class="pull-right">Posted by @review.Author on @review.Date.ToString()</p>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

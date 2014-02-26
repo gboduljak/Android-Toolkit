@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form action="/api/upload" enctype="multipart/form-data">
+    <div class="row fileupload-buttonbar">
+        <div class="span7">
+            <div class="well">
+                <i class="icon-plus"></i><span>&nbsp;&nbsp;Add files...</span>
+                <input type="file" id="fileupload" name="fileupload" accept="image/*" multiple="multiple">
+                <button id="btnUploadAll" class="btn btn-success pull-right" type="button">
+                    Upload All
+                </button>
+                <div class="clearfix">
+                </div>
+                <div class="progress">
+                    <div class="bar" id="overallbar" style="width: 0%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span7">
+            <div class="well hide" id="filelistholder">
+            </div>
+        </div>
+        <div class="span7">
+        </div>
+    </div>
+</form>
+@section Page Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#fileupload').fileupload({
+                dataType: "json",
+                url: "/api/upload",
+                limitConcurrentUploads: 1,
+                sequentialUploads: true,
+                progressInterval: 100,
+                maxChunkSize: 10000,
+                add: function (e, data) {
+                    $('#filelistholder').removeClass('hide');
+                    data.context = $('<div />').text(data.files[0].name).appendTo('#filelistholder');
+                    $('</div><div class="progress"><div class="bar" style="width:0%"></div></div>').appendTo(data.context);
+                    $('#btnUploadAll').click(function () {
+                        data.submit();
+                    });
+                },
+                done: function (e, data) {
+                    data.context.text(data.files[0].name + '... Completed');
+                    $('</div><div class="progress"><div class="bar" style="width:100%"></div></div>').appendTo(data.context);
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#overallbar').css('width', progress + '%');
+                },
+                progress: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    data.context.find('.bar').css('width', progress + '%');
+                }
+            });
+        });
+    </script>
+}

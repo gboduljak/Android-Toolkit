@@ -1,0 +1,90 @@
+﻿@model AndroidToolkitWeb.Entities.BugReport
+@{
+    ViewBag.Title = string.Format("Bug Report - {0}",Model.Name);
+}
+<div class="well" style="visibility:hidden"></div>
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+            $(".errorLog").hide();
+ 
+    });
+</script>
+<div id="nav-bar">
+    <div class="row">
+        <div class="span9">
+            <div id="header-container">
+                <a id="backbutton" class="win-backbutton" href="~/Home/Index"></a>
+                <div class="dropdown">
+                    <h1 class="header-dropdown accent-color">@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="well">
+                <div class="row-fluid">
+                    <div class="span12 slideExpandUp">
+                        <div class="metroWellGreen">
+                            <h3 style="padding:7px;">Bug report Description</h3>
+                            <p class="lead" style="padding:7px;">
+                                @Html.Raw(Model.Description)
+                            </p>
+                        </div>
+                      
+                        <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $(".showErrorLog").click(function () {
+                                    $(".errorLog").show(1000);
+                                });
+                                $(".hideErrorLog").click(function () {
+                                    $(".errorLog").hide(1000);
+                                });
+                            });
+                        </script>
+
+                        <div class="alert alert-info errorLog">
+                            <h2>Error Log</h2>
+                            <p class="lead" style="padding:7px;">
+                                @Html.Raw(Model.ErrorLog)
+                            </p>
+                        </div>
+
+                        <div class="btn-group">
+                            <h3>Error Log</h3>
+                            <button class="btn btn-inverse showErrorLog">
+                                <span class="icon-new pulse"></span>
+                            </button>
+                            <button class="btn btn-info hideErrorLog">
+                                <span class="icon-cancel pulse"></span>
+                            </button>
+                        </div>
+                        <strong>
+                            Solved:
+                            @if (Model.IsSolved)
+                            {
+                                <i class="icon-checkmark icon-green"></i>
+                            }
+                            else
+                            {
+                                <i class="icon-cancel icon-red"></i>
+                            }
+                        </strong>
+
+                        <p class="pull-right">Posted on @Model.Date</p>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,332 @@
+﻿<Controls:MetroWindow x:Class="AndroidToolkit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        Title="Android Toolkit" Height="400" Width="800" ResizeMode="CanMinimize" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen">
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="Admin" Click="OpenAdmin" >
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{DynamicResource appbar_user}" Stretch="Fill"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+            <Button x:Name="Disclaimer" Click="Disclaimer_OnClick">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{DynamicResource appbar_alert}" Stretch="Fill"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+            <Button x:Name="Help" Click="Help_OnClick" >
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{DynamicResource appbar_question}" Stretch="Fill"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{DynamicResource appbar_os_android}" Stretch="Fill"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="AboutFlyout" Width="400" Header="ABOUT" Position="Right">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DockPanel>
+                        <Grid Width="128" Height="128" Background="#FFD6D6D6" Margin="0,0,10,0" VerticalAlignment="Top">
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list1}"></VisualBrush>
+                            </Grid.OpacityMask>
+
+                        </Grid>
+                        <StackPanel>
+                            <TextBlock TextWrapping="Wrap">
+                        ANDROID TOOLKIT v1.0 - INFOKUP EDITION
+                        2013 by Gabrijel B.
+                            </TextBlock>
+                            <Label Content="CHANGELOG" Style="{DynamicResource HeaderTextBlockStyleLabel}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBlock ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  x:Name="ChangelogText" TextWrapping="Wrap" />
+                            <Label Content="ERROR LOG" Style="{DynamicResource HeaderTextBlockStyleLabel}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <Button x:Name="ShowErrorLog" Foreground="Gray" Content="Show ERROR LOG" Click="ShowErrorLog_OnClick"/>
+                        </StackPanel>
+
+                    </DockPanel>
+
+
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="UpdateFlyout" Width="800" Header="Update" Position="Bottom" >
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock TextWrapping="Wrap">
+                       CHECKING FOR UPDATE ...
+                    </TextBlock>
+
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout Header="Welcome" Position="Top" Background="#9f000000">
+                <StackPanel Height="600" Margin="40">
+                    <TextBlock TextWrapping="Wrap"  Style="{DynamicResource HeaderTextBlockStyle}" Foreground="White">
+                        Welcome, this is your first time using me. I hope i will help you. ;)
+                    </TextBlock>
+                    <DockPanel>
+                        <Grid Width="228" Height="228" Background="#FFD6D6D6" Margin="0,0,10,0" VerticalAlignment="Top">
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_thumbs_up}"></VisualBrush>
+                            </Grid.OpacityMask>
+
+                        </Grid>
+
+                    </DockPanel>
+
+                </StackPanel>
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="UpdateAwailableFlyout" Width="800" Header="Updating DB..." Position="Bottom" >
+                <Grid Margin="10">
+
+                    <Controls:MetroProgressBar IsEnabled="True" IsIndeterminate="True" Foreground="{DynamicResource AccentColorBrush}" />
+
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="Resources/TextStyles.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="20,10,0,0">
+            <StackPanel>
+                <DockPanel>
+                    <TextBlock x:Name="Title"  Style="{StaticResource ResourceKey=BigTitle}"  Margin="5" ><Run Text="Android Toolkit"/></TextBlock>
+                    <TextBlock x:Name="TitleType"  Style="{StaticResource ResourceKey=BigTitle2}"  Margin="80,10,0,0" ><Run Text="HOME"/></TextBlock>
+
+
+                </DockPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Margin="20,10,0,0">
+            <StackPanel>
+                <Rectangle Visibility="Collapsed" Margin="64,80,64,60" Fill="#FF706D6D">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_user}"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Visibility="Collapsed" Margin="64,80,64,60" Fill="#FF706D6D">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_question}"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Rectangle Visibility="Collapsed" Margin="64,80,64,60" Fill="#FF706D6D">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_alert}"/>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <DockPanel>
+                    <Grid Width="215" Height="240" Background="#FFD6D6D6" >
+                        <Grid.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_os_android}"></VisualBrush>
+                        </Grid.OpacityMask>
+                        <Grid Width="250" Height="240" Background="#FFD6D6D6" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Rectangle VerticalAlignment="Center" HorizontalAlignment="Center" Width="90" Height="90" Fill="#FF706D6D" Margin="75,85,75,55">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}"/>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Grid>
+                    </Grid>
+                    <Grid Margin="0,0,20,0">
+                        <TabControl>
+                            <TabItem Header="TOOLS">
+                                <Controls:FlipView Height="200" IsBannerEnabled="False" >
+                                    <Controls:FlipView.Items>
+                                        <Grid>
+                                            <Controls:Tile Width="Auto" Margin="20,10" Height="Auto" Click="OpenADB">
+                                                <StackPanel>
+                                                    <Grid Width="128" Height="128" Background="White" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Grid.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}"></VisualBrush>
+                                                        </Grid.OpacityMask>
+                                                    </Grid>
+                                                    <TextBlock Style="{StaticResource TileTitle}" Foreground="White" Text="ADB TOOLS" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+
+                                            </Controls:Tile>
+                                        </Grid>
+                                        <Grid>
+                                            <Controls:Tile Width="Auto" Margin="20,10" Height="Auto" Click="OpenFastboot">
+                                                <StackPanel>
+                                                    <Grid Width="128" Height="128" Background="White" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Grid.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}"></VisualBrush>
+                                                        </Grid.OpacityMask>
+                                                    </Grid>
+                                                    <TextBlock Style="{StaticResource TileTitle}" Foreground="White" Text="FASTBOOT TOOLS" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+
+                                            </Controls:Tile>
+                                        </Grid>
+                                        <Grid>
+                                            <Controls:Tile Width="Auto" Margin="20,10" Height="Auto" Click="OpenAdvancedClick" >
+                                                <StackPanel>
+                                                    <Grid Width="128" Height="128" Background="White"  VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Grid.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_alien}"></VisualBrush>
+                                                        </Grid.OpacityMask>
+                                                    </Grid>
+                                                    <TextBlock Style="{StaticResource TileTitle}" Foreground="White" Text="ADVANCED TOOLS" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Controls:Tile>
+                                        </Grid>
+                                        <Grid>
+                                            <Controls:Tile Width="Auto" Margin="20,10" Height="Auto" Background="Green" x:Name="OpenRecoveryMaster" Click="OpenRecoveryMaster_Click">
+                                                <StackPanel>
+                                                    <Grid Width="128" Height="128" Background="White"  VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Grid.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_new}"></VisualBrush>
+                                                        </Grid.OpacityMask>
+                                                    </Grid>
+                                                    <TextBlock Style="{StaticResource TileTitle}" Foreground="White" Text="RECOVERY MASTER" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Controls:Tile>
+
+                                        </Grid>
+                                        <Grid>
+                                            <Controls:Tile Width="Auto" Margin="20,10" Height="Auto" Background="Green" x:Name="OpenDeviceRestore" Click="OpenDeviceRestore_Click">
+                                                <StackPanel>
+                                                    <Grid Width="128" Height="128" Background="White" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Grid.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_reset}"></VisualBrush>
+                                                        </Grid.OpacityMask>
+                                                    </Grid>
+                                                    <TextBlock Style="{StaticResource TileTitle}" Foreground="White" Text="DEVICE RESTORE" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Controls:Tile>
+
+                                        </Grid>
+                                    </Controls:FlipView.Items>
+                                </Controls:FlipView>
+                            </TabItem>
+                            <TabItem Header="DEVICES">
+                                <GroupBox Header="Devices">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.33*"/>
+                                            <ColumnDefinition Width="0.33*"/>
+                                            <ColumnDefinition Width="0.33*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <StackPanel>
+                                                <TextBlock Text="ADB DEVICES" Style="{StaticResource TileTitle}"></TextBlock>
+                                                <Controls:TransitioningContentControl x:Name="AdbDevices" Transition="RightReplace">
+                                                </Controls:TransitioningContentControl>
+
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <StackPanel>
+                                                <TextBlock Text="FASTBOOT DEVICES" Style="{StaticResource TileTitle}"></TextBlock>
+                                                <Controls:TransitioningContentControl x:Name="FastbootDevices" Transition="RightReplace">
+                                                </Controls:TransitioningContentControl>
+
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid Grid.Column="2">
+                                            <StackPanel>
+                                                <Button x:Name="RefreshDevices" Margin="5,5,5,5" Click="RefreshDevices_Click">
+                                                    <Rectangle Fill="Gray" Width="64" Height="64">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Visual="{StaticResource appbar_refresh}"/>
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                                <Button Margin="5,5,5,5" Click="OpenDeviceConnection">
+                                                    <Rectangle Fill="Gray" Width="64" Height="64">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Visual="{StaticResource appbar_new}"/>
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </GroupBox>
+                            </TabItem>
+                            <TabItem Header="INFO">
+                                <StackPanel>
+                                    <DockPanel>
+                                        <Controls:Tile Click="About_Click">
+                                            <Rectangle Width="80" Height="80" Fill="White">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_list1}"/>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Controls:Tile>
+                                        <Controls:Tile x:Name="ReportBugTile" Click="ReportBugTile_Click">
+                                            <Rectangle Width="80" Height="80" Fill="White">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_error}"/>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Controls:Tile>
+                                        <Controls:Tile Click="CheckForUpdate_Click">
+                                            <Rectangle Width="80" Height="80" Fill="White">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_refresh}"/>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Controls:Tile>
+                                    </DockPanel>
+                                </StackPanel>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </DockPanel>
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,70 @@
+﻿<Controls:MetroWindow x:Class="AndroidToolkit.DeviceConnection"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Android Toolkit - Device Connection Manager" Height="350" Width="650" ResizeMode="CanMinimize" ShowTitleBar="True" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="Resources/TextStyles.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Resources>
+                            <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                        </Rectangle.Resources>
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource ResourceKey=appbar_os_android}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+    <Grid>
+
+        <Grid Height="95" VerticalAlignment="Top" Margin="19,10,310,0">
+            <TextBlock x:Name="TitleSub" Style="{StaticResource ResourceKey=BigTitleSubtext}" Width="132" Margin="99,10,84,-10"><Run Text="by Gabrijel B."/></TextBlock>
+            <TextBlock x:Name="TitleBig" Style="{StaticResource ResourceKey=BigTitle}" Margin="0,24,-167,-24"><Run Text="Android Toolkit"/></TextBlock>
+        </Grid>
+        <TextBlock x:Name="TitleBig_Copy" Style="{StaticResource ResourceKey=BigTitle2}" Margin="419,30,10,226"><Run Text="Device "/></TextBlock>
+        <TabControl HorizontalAlignment="Left" Height="201" Margin="208,110,0,0" VerticalAlignment="Top" Width="426">
+            <TabItem Header="ADB Devices">
+           
+                    <GroupBox Header="ADB LIST">
+                        <TextBlock x:Name="AdbDevices">
+
+                        </TextBlock>
+                    </GroupBox>
+             
+            </TabItem>
+            <TabItem Header="Fastboot Devices">
+       
+                    <GroupBox Header="FASTBOOT LIST">
+                        <TextBlock x:Name="FastbootDevices">
+
+                        </TextBlock>
+                    </GroupBox>
+             
+            </TabItem>
+
+        </TabControl>
+
+        <Image Source="Resources/Images/Download.png" Margin="39,121,477,72" Width="128" Height="128"/>
+        <Button x:Name="DownloadDrivers" Content="GET UNIVERSAL DRIVERS" HorizontalAlignment="Left" Margin="21,271,0,0" VerticalAlignment="Top" Width="170" Click="DownloadDrivers_Click"/>
+        <Button x:Name="Refresh" Content="Refresh" HorizontalAlignment="Left" Margin="21,294,0,0" VerticalAlignment="Top" Width="170" Click="Refresh_Click"/>
+        <Controls:MetroProgressBar x:Name="DownloadProgress" HorizontalAlignment="Left" Margin="19,96,0,0" VerticalAlignment="Top" Width="172" Height="10" Foreground="#FF3CACDC"/>
+
+    </Grid>
+</Controls:MetroWindow>

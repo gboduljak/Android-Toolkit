@@ -1,0 +1,200 @@
+﻿@model AndroidToolkitWeb.Entities.BlogPost
+
+@{
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+    var post = Model;
+    ViewBag.Title = post.Name;
+}
+
+@*<h2>Details</h2>
+
+<div>
+    <h4>BlogPost</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Img1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Img1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Img2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Img2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Img3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Img3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tags)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+
+
+<div class="container-fluid body-read">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="post pullUp">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <a href="#Author">
+                            <img class="img-circle img-author" src="~/img/@post.Author-authorImg.png" alt="Author">
+                        </a>
+                    </div>
+                    <div class="span8">
+                        <div class="row">
+                            <div class="span12">
+                                <h1 class="post-title">@post.Name</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span12 body-read">
+                                
+                                    @Html.Raw(post.Post)
+                                
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            @if (!string.IsNullOrEmpty(post.Img1))
+                            {
+                                <div class="span4">
+                                    <img src="@Url.Content(post.Img1)" class="img-polaroid" />
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(post.Img2))
+                            {
+                                <div class="span4">
+                                    <img src="@Url.Content(post.Img2)" class="img-polaroid" />
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(post.Img3))
+                            {
+                                <div class="span4">
+                                    <img src="@Url.Content(post.Img3)" class="img-polaroid" />
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="span12">
+                                <p></p>
+                                <p>
+                                    <i class="icon-user"></i><a href="#" class="post-link">@post.Author</a>
+                                    | <i class="icon-calendar"></i> @post.Date
+                                    | <i class="icon-tags"></i>
+                                    @{
+                                        var tags = post.Tags.Split(',');
+                                        foreach (string tag in tags)
+                                        {
+                                            <a href="#"> <span class="label label-inverse">@tag</span> </a>
+                                        }
+                                    }
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br />
+    <hr />
+    <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8" id="disqus">
+            <h3>LEAVE REPLY</h3>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'androidtoolkitweb'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function () {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        </div>
+        <div class="span2"></div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'androidtoolkitweb'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>

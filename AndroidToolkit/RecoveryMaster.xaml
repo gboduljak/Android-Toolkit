@@ -1,0 +1,209 @@
+﻿<Controls:MetroWindow
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="AndroidToolkit.RecoveryMaster"
+        Title="Android Toolkit - Recovery Master" Height="380" Width="660" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
+        ShowIconOnTitleBar="true">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+       
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+                <ResourceDictionary Source="Resources/TextStyles.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="RebootBootloader" Content="Reboot" Click="RebootBootloader_Click"/>
+            <Button x:Name="RebootRecovery" Content="Reboot Recovery" Click="RebootRecovery_Click"/>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Resources>
+                            <SolidColorBrush x:Key="BlackBrush" Color="White" />
+                        </Rectangle.Resources>
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource ResourceKey=appbar_new}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="Loading" IsOpen="False" Background="#9f000000" Header="Loading..." Position="Bottom">
+                <Grid>
+                    <Controls:MetroProgressBar IsEnabled="True" IsIndeterminate="True" Foreground="{DynamicResource AccentColorBrush}" />
+                </Grid>
+
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="LoadingCompleted" IsOpen="False" Background="#9f000000" Header="Loading Completed">
+                <Grid>
+                    <StackPanel>
+                        <Rectangle Width="80" Height="80">
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Fill" >
+                                    <VisualBrush.Visual>
+                                        <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False">
+                                            <Path Width="22" Height="26" Canvas.Left="13" Canvas.Top="11" Stretch="Fill" Fill="{DynamicResource WhiteBrush}" Data="F1 M 24,13C 27.1521,13 29.9945,14.3258 32,16.4501L 32,11L 35,14L 35,22L 27,22L 24,19L 29.5903,19C 28.217,17.4656 26.2212,16.5 24,16.5C 20.1969,16.5 17.055,19.3306 16.5661,23L 13.0448,23C 13.5501,17.3935 18.262,13 24,13 Z M 24,31.5C 27.8031,31.5 30.945,28.6694 31.4339,25L 34.9552,25C 34.4499,30.6065 29.738,35 24,35C 20.8479,35 18.0055,33.6742 16,31.5499L 16,37L 13,34L 13,26L 21,26L 24,29L 18.4097,29C 19.783,30.5344 21.7787,31.5 24,31.5 Z " />
+                                        </Canvas>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </StackPanel>
+
+                </Grid>
+
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="DownloadingRecovery" IsOpen="False" Background="#9f000000" Header="Downloading Recovery..." Position="Bottom">
+                <Grid>
+                    <Controls:MetroProgressBar IsEnabled="True" IsIndeterminate="True" Foreground="{DynamicResource AccentColorBrush}" />
+                </Grid>
+
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="DownloadingRecoveryCompleted" IsOpen="False" Background="#9f000000" Header="Download Completed" Position="Bottom">
+
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="FlashingRecovery" IsOpen="False" Background="#9f000000" Header="Flashing... This may take a few minutes..." Position="Bottom">
+                <Grid>
+                    <Controls:MetroProgressBar IsEnabled="True" IsIndeterminate="True" Foreground="{DynamicResource AccentColorBrush}" />
+                </Grid>
+
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="Rebooting" IsOpen="False" Background="#9f000000" Header="Rebooting" Position="Bottom">
+                <Grid>
+                    <Controls:MetroProgressBar IsEnabled="True" IsIndeterminate="True" Foreground="{DynamicResource AccentColorBrush}" />
+                </Grid>
+
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+        
+    </Controls:MetroWindow.Flyouts>
+    <Grid>
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="221*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="TitleBig1" Style="{StaticResource ResourceKey=BigTitle}"><Run Text="Recovery Master"/></TextBlock>
+            <DockPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Controls:ToggleSwitch Header="   Hide CMD" Checked="ToggleSwitch_Checked" Unchecked="ToggleSwitch_Unchecked"/>
+                <Controls:ToggleSwitch x:Name="LightThemeSwitch" Header="Light Theme" />
+            </DockPanel>
+           
+        </Grid>
+        <Grid Margin="5,75,5,5">
+            <TabControl>
+                <TabItem Header="Recovery Master">
+                    <DockPanel>
+                        <Grid VerticalAlignment="Top" Width="128" Height="160" Margin="20" >
+                            <Grid.Background>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_iphone}" />
+                            </Grid.Background>
+
+                            <Rectangle VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+
+                        <Grid Width="128" Height="160" Margin="20" VerticalAlignment="Top">
+                            <Rectangle Fill="Gray">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_connect}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Grid>
+                        <Controls:ProgressRing Visibility="Collapsed" x:Name="LoadingBar" IsActive="True"></Controls:ProgressRing>
+                        <StackPanel>
+                            <TextBlock x:Name="DescriptionText" TextWrapping="Wrap" Margin="5" Style="{StaticResource TileTitle}" Text="Recovery Master is revolutionary recovery managment tool. Connect your device, reboot in fastboot, select device then flash. Awesome, isn't it?"/>
+
+                        </StackPanel>
+
+                    </DockPanel>
+
+                </TabItem>
+                <TabItem Header="Recovery Managment">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                        </Grid.ColumnDefinitions>
+                          
+                                <StackPanel Grid.Column="0">
+                                    <ComboBox x:Name="FlashRecoveriesComboBox"  VerticalAlignment="Top" Margin="5,0,5,0"/>
+                                    <Controls:Tile x:Name="Flash" Click="Flash_Click" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <StackPanel Width="112">
+                                            <Rectangle Width="80" Height="80">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush Stretch="Fill">
+                                                        <VisualBrush.Visual>
+                                                            <Canvas Clip="F1M0,0L48.0067,0 48.0067,48.0067 0,48.0067 0,0" Height="48.0067" UseLayoutRounding="False" Width="48.0067" d:DesignUseLayoutRounding="True">
+                                                                <Path Data="F1M33.0046,12.0017L24.0033,21.0029 32.0045,21.0029 16.0022,36.005 22.4031,24.0034 15.0021,24.0033 23.0032,12.0017 33.0046,12.0017z" Fill="{DynamicResource WhiteBrush}" Height="24.0033" Canvas.Left="15.0021" Stretch="Fill" Canvas.Top="12.0017" UseLayoutRounding="True" Width="18.0025" d:DesignUseLayoutRounding="True"/>
+                                                            </Canvas>
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </StackPanel>
+
+
+                                    </Controls:Tile>
+                                </StackPanel>
+                                <Grid Grid.Column="1">
+                                  
+                                        <DockPanel Height="Auto" Width="Auto">
+                                    <ListView x:Name="View" MinWidth="450">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <WrapPanel>
+                                                            <Rectangle Width="18" Height="28" Margin="5" Fill="Gray">
+                                                                <Rectangle.OpacityMask>
+                                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_iphone}" />
+                                                                </Rectangle.OpacityMask>
+                                                            </Rectangle>
+                                                            <TextBlock Text="Device ID: " />
+                                                            <TextBlock Text="{Binding ID}" FontWeight="Bold" />
+                                                            <TextBlock Text=", " />
+                                                            <TextBlock Text="Device Name: " />
+                                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                                                        </WrapPanel>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+
+                                        </DockPanel>
+                                       
+                                    
+
+                                </Grid>
+                           
+
+                 
+
+
+
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <DockPanel Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <Controls:MetroProgressBar x:Name="DownloadProgress" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="161" Background="{x:Null}" Foreground="#FF3CACDC"/>
+            <TextBlock x:Name="ProgressText" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" Foreground="#FF00AADE"/>
+        </DockPanel>
+        <Rectangle Fill="#FF00AEE2" VerticalAlignment="Bottom" Height="4" Stroke="#FF00AEE2"/>
+    </Grid>
+</Controls:MetroWindow>
+

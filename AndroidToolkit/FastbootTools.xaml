@@ -1,0 +1,583 @@
+﻿<Controls:MetroWindow x:Class="AndroidToolkit.FastbootTools"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Android Toolkit - Fastboot Tools" Height="560" Width="1000" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
+        ShowIconOnTitleBar="true">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="Resources/TextStyles.xaml" />
+                <ResourceDictionary Source="Resources/Icons.xaml" />
+                <ResourceDictionary Source="Resources/CustomButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="KillFastboot" Foreground="Gray" Content="KILL Fastboot" Click="KillFastboot_Click" />
+            <Button x:Name="Settings" Click="Settings_Click" Foreground="Gray" >
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray"  >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_settings}" Stretch="Fill"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20" Fill="Gray">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource ResourceKey=appbar_os_android}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="FastbootFlyout" IsOpen="False" Background="#9f000000">
+                <Grid>
+                    <StackPanel>
+                        <Rectangle Fill="#FF41B1E1" Width="80" Height="80">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_alert}" Stretch="Fill" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <ScrollViewer  Width="300" Height="300" CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Margin="20">
+                            <TextBlock TextWrapping="Wrap" x:Name="FlyoutText"></TextBlock>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout x:Name="UISettingsFlyout" Header="UI Settings" Position="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="30*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="20">
+                        <TextBlock Margin="10" Text="Make it your. ;)" TextWrapping="Wrap" Style="{StaticResource TileTitle}"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Margin="20">
+                        <DockPanel>
+                            <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Text="SELECT ACCENT" TextWrapping="Wrap" Style="{StaticResource TileTitle}"/>
+                            <ComboBox VerticalAlignment="Center" x:Name="Accents" SelectionChanged="Accents_SelectionChanged"/>
+                        </DockPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Column="2" Margin="10">
+                        <Button Width="60" Height="60"  Style="{StaticResource MetroCircleButtonStyle}" x:Name="ChangeAccent" Click="ChangeAccent_Click">
+                            <Controls:MetroImage Width="40" Height="40" Source="{StaticResource appbar_check}"/>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+
+    </Controls:MetroWindow.Flyouts>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.30*"/>
+            <RowDefinition Height="0.90*"/>
+            <RowDefinition Height="0.02*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.90*"/>
+            <ColumnDefinition Width="0.40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="Title" Grid.Column="0">
+            <StackPanel Margin="10">
+                <DockPanel>
+                    <StackPanel>
+
+                        <TextBlock x:Name="TitleBig1" Style="{StaticResource ResourceKey=BigTitle}" Margin="20"><Run Text="Android Toolkit"/></TextBlock>
+                    </StackPanel>
+
+                    <Grid Margin="10,0,10,0">
+                        <Rectangle Margin="10" Width="80" Height="80" Fill="{DynamicResource AccentColorBrush}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+
+                    </Grid>
+                    <TextBlock x:Name="TitleBig_Copy" Style="{StaticResource ResourceKey=BigTitle2}" Text="FASTBOOT" Height="65"/>
+
+                </DockPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="Content" Grid.Column="0" Grid.Row="1" Margin="20">
+            <DockPanel>
+                <TabControl HorizontalAlignment="Left" MaxHeight="311" Width="Auto" VerticalAlignment="Top">
+                    <TabItem Header="Boot">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="0.6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Width="228" Height="228" Fill="#FFD6D6D6">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cd}"></VisualBrush>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <GroupBox Header="Boot" Grid.Column="1" Margin="10,10,10,0" >
+                                <Grid Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Controls:Tile x:Name="BootChoose" Grid.Column="0"  Click="BootChoose_Click">
+                                        <StackPanel>
+                                            <Rectangle Width="64" Height="64">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}"></VisualBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Controls:Tile>
+                                    <Controls:Tile x:Name="Boot" Grid.Column="1" Click="Boot_Click" >
+                                        <StackPanel>
+                                            <Rectangle Width="64" Height="64">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cd}"></VisualBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </StackPanel>
+                                    </Controls:Tile>
+
+                                </Grid>
+
+                            </GroupBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Bootloader">
+                        <Grid>
+                            <DockPanel>
+                                <Rectangle Width="180" Height="200" Fill="#FFD6D6D6">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_box}"></VisualBrush>
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <GroupBox Header="Lock/Unlock" Width="214">
+                                    <StackPanel>
+                                        <StackPanel>
+                                            <Button x:Name="Lock"  Foreground="Gray" Click="Lock_Click" Margin="0,0,0,5">
+                                                <Rectangle Width="30" Height="30" Fill="#FF706D6D">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_lock}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="Unlock" Foreground="Gray" Click="Unlock_Click">
+                                                <Rectangle Width="30" Height="30" Fill="#FF706D6D">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_unlock}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Identifier TOKEN" Width="222">
+                                    <DockPanel>
+                                        <Button x:Name="GetIdentifierToken" VerticalAlignment="Top" Style="{DynamicResource MetroCircleButtonStyle}" Width="200" Height="200" Click="GetIdentifierToken_Click" Margin="5">
+                                            <StackPanel Orientation="Vertical">
+                                                <Rectangle Width="120" Height="120">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_barcode}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <TextBlock Text="GET TOKEN" />
+                                            </StackPanel>
+                                        </Button>
+
+                                    </DockPanel>
+                                </GroupBox>
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Erase">
+                        <Grid>
+                            <DockPanel>
+                                <Rectangle Width="228" Height="228"  Fill="#FFD6D6D6">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cancel}"></VisualBrush>
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <GroupBox Header="Erase">
+                                    <StackPanel>
+                                        <Button  Margin="0,0,0,5" x:Name="EraseSystem"  Click="EraseSystem_Click">
+                                            <DockPanel>
+                                                <Rectangle Width="20" Height="20" Fill="Gray">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_delete}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                                <TextBlock Foreground="Gray" Text="Erase System"/>
+                                            </DockPanel>
+                                        </Button>
+                                        <Button  Margin="0,0,0,5" x:Name="EraseBoot" Click="EraseBoot_Click">
+                                            <DockPanel>
+                                                <Rectangle Width="20" Height="20" Fill="Gray">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_delete}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                                <TextBlock Foreground="Gray" Text="Erase Boot"/>
+                                            </DockPanel>
+                                        </Button>
+                                        <Button  Margin="0,0,0,5" x:Name="EraseRecovery" Click="EraseRecovery_Click">
+                                            <DockPanel>
+                                                <Rectangle Width="20" Height="20" Fill="Gray">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_delete}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                                <TextBlock Foreground="Gray" Text="Erase Recovery"/>
+                                            </DockPanel>
+                                        </Button>
+                                        <Button  Margin="0,0,0,5" x:Name="EraseCache"  Click="EraseCache_Click">
+                                            <DockPanel>
+                                                <Rectangle Width="20" Height="20" Fill="Gray">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_delete}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                                <TextBlock Foreground="Gray" Text="Erase Cache"/>
+                                            </DockPanel>
+                                        </Button>
+                                        <Button  Margin="0,0,0,5" x:Name="EraseUserdata" Click="EraseUserdata_Click">
+                                            <DockPanel>
+                                                <Rectangle Width="20" Height="20" Fill="Gray">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_delete}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                                <TextBlock Foreground="Gray" Text="Erase UserData"/>
+                                            </DockPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </GroupBox>
+                            </DockPanel>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Flash">
+                        <Grid>
+                            <DockPanel>
+                                <Rectangle Width="228" Height="228" Fill="{DynamicResource AccentColorBrush}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_lightning}"></VisualBrush>
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <GroupBox Header="Flash">
+                                    <StackPanel>
+                                        <DockPanel  Margin="0,0,0,5">
+                                            <Button x:Name="FlashSystemChoose" Style="{StaticResource MetroAccentButton}" Click="FlashSystemChoose_Click">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="FlashSystem" Content="Flash System"  Foreground="Gray" Click="FlashSystem_Click"></Button>
+                                        </DockPanel>
+                                        <DockPanel  Margin="0,0,0,5">
+                                            <Button x:Name="FlashBootChoose" Style="{StaticResource MetroAccentButton}" Click="FlashBootChoose_Click">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="FlashBoot" Content="Flash Boot"  Foreground="Gray" Click="FlashBoot_Click"></Button>
+                                        </DockPanel>
+                                        <DockPanel  Margin="0,0,0,5">
+                                            <Button x:Name="FlashRecoveryChoose" Style="{StaticResource MetroAccentButton}" Click="FlashRecoveryChoose_Click">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="FlashRecovery" Content="Flash Recovery"  Foreground="Gray" Click="FlashRecovery_Click"></Button>
+                                        </DockPanel>
+                                        <DockPanel  Margin="0,0,0,5">
+                                            <Button x:Name="FlashBootloaderChoose" Style="{StaticResource MetroAccentButton}" Click="FlashBootloaderChoose_Click">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="FlashBootloader" Content="Flash Bootloader"  Foreground="Gray" Click="FlashBootloader_Click"></Button>
+                                        </DockPanel>
+                                        <DockPanel  Margin="0,0,0,5">
+                                            <Button x:Name="FlashRadioChoose" Style="{StaticResource MetroAccentButton}" Click="FlashRadioChoose_Click">
+                                                <Rectangle Width="24" Height="22">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Button>
+                                            <Button x:Name="FlashRadio" Content="Flash Radio"  Foreground="Gray" Click="FlashRadio_Click"></Button>
+                                        </DockPanel>
+
+                                    </StackPanel>
+                                </GroupBox>
+                                <Grid>
+                                    <GroupBox Header="Flash" Margin="5,5,10,5">
+                                        <Grid>
+                                            <StackPanel>
+                                                <DockPanel  Margin="0,0,0,5">
+                                                    <Button x:Name="FlashUnlockTokenChoose" Style="{StaticResource MetroAccentButton}" Click="FlashUnlockTokenChoose_Click">
+                                                        <Rectangle Width="24" Height="22">
+                                                            <Rectangle.Fill>
+                                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                    </Button>
+                                                    <Button x:Name="FlashUnlockToken" Content="Flash Unlock Token"  Foreground="Gray" Click="FlashUnlockToken_Click" ></Button>
+                                                </DockPanel>
+                                                <DockPanel  Margin="0,0,0,5">
+                                                    <Button x:Name="FlashUserdataChoose" Style="{StaticResource MetroAccentButton}" Click="FlashUserdataChoose_Click">
+                                                        <Rectangle Width="24" Height="22">
+                                                            <Rectangle.Fill>
+                                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_folder_open}" />
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                    </Button>
+                                                    <Button x:Name="FlashUserdata" Content="Flash Userdata"  Foreground="Gray" Click="FlashUserdata_Click"></Button>
+                                                </DockPanel>
+                                            </StackPanel>
+
+
+                                        </Grid>
+
+                                    </GroupBox>
+                                </Grid>
+
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="CID">
+                        <Grid>
+                            <DockPanel>
+                                <Rectangle Width="228" Height="228" Fill="#FFD6D6D6">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_vector_pen}" Stretch="Fill"></VisualBrush>
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <GroupBox Header="CID OPERATIONS" Width="362">
+                                    <StackPanel>
+                                        <TextBox  Margin="0,0,0,5" x:Name="WriteCIDBlock" Controls:TextboxHelper.ClearTextButton="True" Controls:TextboxHelper.Watermark="ENTER CID"></TextBox>
+                                        <Button  Margin="0,0,0,5" x:Name="WriteCid" Style="{StaticResource MetroAccentButton}" Click="WriteCid_Click">
+                                            <DockPanel>
+                                                <Rectangle Width="20" Height="20" Fill="White">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Visual="{StaticResource appbar_vector_pen}" Stretch="Fill"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                                <TextBlock Foreground="White" Text="Write CID"/>
+                                            </DockPanel>
+                                        </Button>
+                                        <Button x:Name="ReadCID" VerticalAlignment="Top" Style="{DynamicResource MetroCircleButtonStyle}" Width="95" Height="95" Click="ReadCID_Click">
+                                            <StackPanel Orientation="Vertical">
+                                                <Rectangle Width="45" Height="45">
+                                                    <Rectangle.Fill>
+                                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_barcode}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <TextBlock Text="Read CID" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </GroupBox>
+
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Execute">
+                        <Grid>
+                            <DockPanel>
+                                <Rectangle Width="140" Height="140" Fill="#FF41B1E1">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Visual="{StaticResource appbar_alien}" Stretch="Fill"></VisualBrush>
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <GroupBox Header="COMMANDS" Width="310">
+                                    <Grid>
+
+                                        <DockPanel>
+                                            <StackPanel>
+                                                <TextBox x:Name="Command1" Controls:TextboxHelper.Watermark="COMMAND1" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command2" Controls:TextboxHelper.Watermark="COMMAND2" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command3" Controls:TextboxHelper.Watermark="COMMAND3" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command4" Controls:TextboxHelper.Watermark="COMMAND4" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command5" Controls:TextboxHelper.Watermark="COMMAND5" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <TextBox x:Name="Command6" Controls:TextboxHelper.Watermark="COMMAND6" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command7" Controls:TextboxHelper.Watermark="COMMAND7" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command8" Controls:TextboxHelper.Watermark="COMMAND8" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command9" Controls:TextboxHelper.Watermark="COMMAND9" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                                <TextBox x:Name="Command10" Controls:TextboxHelper.Watermark="COMMAND10" Foreground="Gray" Width="148"  Margin="0,0,0,5" Controls:TextboxHelper.ClearTextButton="True"/>
+                                            </StackPanel>
+                                        </DockPanel>
+
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="EXECUTE" Width="168" >
+                                    <Grid>
+                                        <StackPanel>
+                                            <Controls:Tile x:Name="ExecuteCommands"  Click="ExecuteCommands_Click">
+                                                <StackPanel>
+                                                    <Rectangle Width="64" Height="64">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}"></VisualBrush>
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </StackPanel>
+                                            </Controls:Tile>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </DockPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Other">
+                        <DockPanel>
+                            <Rectangle Width="180" Height="180" Fill="#FFD6D6D6">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_list1}"/>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <GroupBox Header="Other" Width="451">
+                                <DockPanel>
+                                    <Controls:Tile x:Name="OpenZipFlasher" Click="OpenZipFlasher_Click">
+                                        <StackPanel>
+                                            <Rectangle Width="80" Height="80">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush Stretch="Fill">
+                                                        <VisualBrush.Visual>
+                                                            <Canvas Width="48.0067" Height="48.0067" Clip="F1 M 0,0L 48.0067,0L 48.0067,48.0067L 0,48.0067L 0,0" UseLayoutRounding="False">
+                                                                <Path Width="18.0025" Height="24.0033" Canvas.Left="15.0021" Canvas.Top="12.0017" Stretch="Fill" Fill="{DynamicResource WhiteBrush}" Data="F1 M 33.0046,12.0017L 24.0033,21.0029L 32.0045,21.0029L 16.0022,36.005L 22.4031,24.0034L 15.0021,24.0033L 23.0032,12.0017L 33.0046,12.0017 Z " />
+                                                            </Canvas>
+                                                        </VisualBrush.Visual>
+
+                                                    </VisualBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <TextBlock Margin="5" Style="{StaticResource TileTitle}" Foreground="White">ZIP FLASHER</TextBlock>
+                                        </StackPanel>
+                                    </Controls:Tile>
+                                    <Controls:Tile x:Name="OpenDeviceRestore" Click="OpenDeviceRestore_Click">
+                                        <StackPanel>
+                                            <Rectangle Width="80" Height="80">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush Stretch="Fill">
+                                                        <VisualBrush.Visual>
+                                                            <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False">
+                                                                <Path Width="25" Height="27" Canvas.Left="12" Canvas.Top="9.00001" Stretch="Fill" Fill="{DynamicResource WhiteBrush}" Data="F1 M 12,29L 16.1736,29C 18.0962,31.1481 20.8902,32.5 24,32.5C 27.1097,32.5 29.9037,31.1481 31.8264,29L 37,29L 37,36L 12,36L 12,29 Z M 35.5,30.5L 33.75,30.5L 33.75,33.5L 35.5,33.5L 35.5,30.5 Z M 25,21L 19,15L 25,9.00001L 25,13.0549C 29.4999,13.5524 33,17.3675 33,22C 33,26.9706 28.9706,31 24,31C 19.0294,31 15,26.9706 15,22C 15,20.2215 15.5158,18.5636 16.4061,17.1675L 19.3593,19.0468C 18.8152,19.9 18.5,20.9132 18.5,22C 18.5,25.0376 20.9624,27.5 24,27.5C 27.0376,27.5 29.5,25.0376 29.5,22C 29.5,19.3039 27.5601,17.061 25,16.5907L 25,21 Z " />
+                                                            </Canvas>
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                            <TextBlock Margin="5" Style="{StaticResource TileTitle}" Foreground="White">DEVICE RESTORE</TextBlock>
+                                        </StackPanel>
+                                    </Controls:Tile>
+                                    <Controls:Tile Click="DevicesButton_Click">
+                                        <Grid Width="80" Height="100">
+                                            <Grid.Background>
+                                                <VisualBrush Stretch="Fill">
+                                                    <VisualBrush.Visual>
+                                                        <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False">
+                                                            <Path Width="16" Height="24" Canvas.Left="16" Canvas.Top="12" Stretch="Fill" Fill="{DynamicResource WhiteBrush}" Data="F1 M 18.5,12L 29.5,12C 30.8807,12 32,13.1193 32,14.5L 32,33.5C 32,34.8807 30.8807,36 29.5,36L 18.5,36C 17.1193,36 16,34.8807 16,33.5L 16,14.5C 16,13.1193 17.1193,12 18.5,12 Z M 21,13.5C 20.7239,13.5 20.5,13.7239 20.5,14L 20.5,14.5C 20.5,14.7762 20.7239,15 21,15L 27,15C 27.2761,15 27.5,14.7762 27.5,14.5L 27.5,14C 27.5,13.7239 27.2761,13.5 27,13.5L 21,13.5 Z M 18,16L 18,31L 30,31L 30,16L 18,16 Z M 24,32C 23.1716,32 22.5,32.6716 22.5,33.5C 22.5,34.3284 23.1716,35 24,35C 24.8284,35 25.5,34.3284 25.5,33.5C 25.5,32.6716 24.8284,32 24,32 Z " />
+                                                        </Canvas>
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Grid.Background>
+                                            <Rectangle Width="40" Height="40">
+                                                <Rectangle.Fill>
+                                                    <VisualBrush Stretch="Fill">
+                                                        <VisualBrush.Visual>
+                                                            <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False">
+                                                                <Ellipse Width="4" Height="4" Canvas.Left="22" Canvas.Top="22" Stretch="Fill" Fill="{DynamicResource WhiteBrush}" />
+                                                                <Path Width="19.6504" Height="19.6504" Canvas.Left="14.1748" Canvas.Top="14.1748" Stretch="Fill" Fill="{DynamicResource WhiteBrush}" Data="F1 M 24.69,17.5542L 27.9094,14.793C 28.5138,15.05 29.0876,15.3647 29.6241,15.7302L 29.0458,19.93L 33.2747,20.2541C 33.5166,20.8524 33.7023,21.4794 33.8252,22.1286L 30.4458,24.69L 33.207,27.9094C 32.95,28.5137 32.6353,29.0876 32.2698,29.6241L 28.07,29.0458L 27.7459,33.2747C 27.1476,33.5166 26.5206,33.7023 25.8714,33.8252L 23.3099,30.4458L 20.0906,33.207C 19.4862,32.95 18.9124,32.6353 18.3759,32.2698L 18.9542,28.0699L 14.7253,27.7459C 14.4834,27.1476 14.2977,26.5206 14.1748,25.8713L 17.5542,23.3099L 14.793,20.0906C 15.05,19.4862 15.3647,18.9124 15.7302,18.3759L 19.93,18.9542L 20.2541,14.7252C 20.8524,14.4834 21.4794,14.2977 22.1286,14.1748L 24.69,17.5542 Z M 24,20C 21.7909,20 20,21.7909 20,24C 20,26.2091 21.7909,28 24,28C 26.2091,28 28,26.2091 28,24C 28,21.7909 26.2091,20 24,20 Z " />
+                                                            </Canvas>
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Rectangle.Fill>
+                                            </Rectangle>
+                                        </Grid>
+                                    </Controls:Tile>
+                                </DockPanel>
+                            </GroupBox>
+                        </DockPanel>
+                    </TabItem>
+
+                </TabControl>
+            </DockPanel>
+
+        </Grid>
+        <Grid x:Name="ControlsTop" Grid.Column="1" Grid.Row="0">
+            <StackPanel>
+                <Controls:ToggleSwitch Header="Light Theme" Checked="ToggleSwitch_Checked" Unchecked="ToggleSwitch_Unchecked"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ContentRight" Grid.Column="1" Grid.Row="1">
+            <StackPanel Margin="0,0,20,0">
+                <Label Content="REBOOT" Style="{StaticResource ResourceKey=HeaderTextBlockStyleLabel}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <DockPanel>
+                    <StackPanel>
+                        <Button  Margin="0,0,0,5" x:Name="RebootButton" Content="Reboot" Foreground="Gray" Click="RebootButton_Click"/>
+                        <Button  Margin="0,0,0,5" x:Name="RebootRecoveryButton" Content="Reboot Recovery"  Foreground="Gray"  Click="RebootRecoveryButton_Click"/>
+                        <Button  x:Name="RebootBootloaderButton" Content="Reboot Bootloader"  Foreground="Gray"  Click="RebootBootloaderButton_Click"/>
+                    </StackPanel>
+                    <Controls:ProgressRing IsActive="True"></Controls:ProgressRing>
+
+                </DockPanel>
+                <DockPanel>
+                    <StackPanel>
+                        <Label Content="STATUS" Style="{StaticResource ResourceKey=HeaderTextBlockStyleLabel}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <Controls:ToggleSwitch x:Name="CreateWindowCheckBox" Content="Hide CMD" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CreateWindowCheckBox_Checked" Unchecked="CreateWindowCheckBox_Unchecked" Width="168"/>
+                        <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Height="75" MaxWidth="169">
+                            <TextBlock TextWrapping="Wrap"  x:Name="OutputBlock"/>
+                        </ScrollViewer>
+                        <TextBox x:Name="ExecuteOneCommandText"  Controls:TextboxHelper.ClearTextButton="True" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Controls:TextboxHelper.Watermark="Enter Command Text here"/>
+                        <Button HorizontalAlignment="Left" Style="{StaticResource ResourceKey=SquareButtonStyle}" x:Name="ExecuteOneCommand" Content="Execute" Foreground="Gray" Click="ExecuteOneCommand_OnClick" Width="169"/>
+
+                    </StackPanel>
+                    <Rectangle Width="64" Height="64" Fill="#FFD6D6D6" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_vector_pen}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </DockPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="0" Width="Auto" Height="10" Grid.Row="2">
+            <Rectangle Fill="{DynamicResource AccentColorBrush}"></Rectangle>
+        </Grid>
+        <Grid Grid.Column="1" Width="Auto" Height="10" Grid.Row="2">
+            <Rectangle Fill="{DynamicResource AccentColorBrush}"></Rectangle>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,72 @@
+﻿/*@import url(http://fonts.googleapis.com/css?family=Concert+One);*/
+body {
+    font-family:'Comic Sans MS',Calibri;
+    font-weight:lighter;
+    color: #808080;
+       
+}
+
+.post {
+    font-family:'Comic Sans MS',Calibri;
+    line-height: 1.85;
+    color: #808080;
+}
+
+    .post:hover {
+        /*border: solid;
+        border-color: #13c97a;
+        border-width: 2px;
+        border-radius: 3px;*/
+        background-color: #eeeeee;
+    }
+
+
+    /* Header*/
+    .post .post-title {
+        text-align: center;
+        color: #808080;
+        font-family: 'Comic Sans MS', Calibri;
+        font-size: 3em;
+    }
+
+        .post .post-title:hover {
+            font-weight: bold;
+            color: #13c97a;
+            text-decoration: underline;
+        }
+
+/*Links*/
+
+.post-link {
+    line-height: 1.85;
+    color: #808080;
+}
+
+    .post-link:hover, .post-link:checked {
+        font-weight: bold;
+        color: #13c97a;
+        text-decoration: underline;
+    }
+
+
+/*Text*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Comic Sans MS',Calibri;
+}
+
+
+.post-footer {
+    background-color: #eeeeee;
+}
+
+    .post-footer:hover {
+        border: solid;
+        border-color: #eeeeee;
+        border-width: 2px;
+        border-radius: 3px;
+    }
+
+.latestPost {
+    padding-left: 7px;
+}
