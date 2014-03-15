@@ -52,13 +52,13 @@ namespace AndroidToolkit
         private TextBox _adbDevicesBox;
         void _bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            _adbDevicesBox=new TextBox()
+            _adbDevicesBox = new TextBox()
                            {
                                Foreground = Brushes.Gray,
                                FontSize = 18
                            };
             _adbDevicesBox.Text = StringLinesRemover.ForgetLastLine(_adbDevices);
-            AdbDevicesControl.Content =_adbDevicesBox ;
+            AdbDevicesControl.Content = _adbDevicesBox;
             FastbootDevicesControl.Content = new TextBox().Text = StringLinesRemover.ForgetLastLine(_fastbootDevices);
         }
         void _bw_DoWork(object sender, DoWorkEventArgs e)
@@ -132,10 +132,10 @@ namespace AndroidToolkit
             panel.CanVerticallyScroll = true;
             panel.CanHorizontallyScroll = true;
             TextBlock infoBlock = new TextBlock()
-                                  {
-                                      Style = textblockStyle,
-                                      TextWrapping = TextWrapping.Wrap
-                                  };
+            {
+                Style = textblockStyle,
+                TextWrapping = TextWrapping.Wrap
+            };
             infoBlock.Text = StringLinesRemover.ForgetLastLine(_deviceInfo.OsVersion);
             infoBlock.Text = Regex.Replace(infoBlock.Text, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
             infoBlock.Text = infoBlock.Text + "\n" + _deviceInfo.OsVersionShort;
@@ -148,31 +148,31 @@ namespace AndroidToolkit
             panel2.CanHorizontallyScroll = true;
             panel2.Children.Add(new Label() { Style = labelStyle, Content = "MANUFACTURER" });
             TextBlock infoBlock2 = new TextBlock()
-                                    {
-                                        Style = textblockStyle,
-                                        TextWrapping = TextWrapping.Wrap
-                                    };
+            {
+                Style = textblockStyle,
+                TextWrapping = TextWrapping.Wrap
+            };
             infoBlock2.Text = StringLinesRemover.ForgetLastLine(_deviceInfo.DeviceManufacturer);
             infoBlock2.Text = Regex.Replace(infoBlock2.Text, @"^\s*$\n", string.Empty, RegexOptions.Multiline).TrimEnd();
             panel2.Children.Add(infoBlock2);
             panel2.Children.Add(new Label() { Style = labelStyle, Content = "CODENAME" });
             TextBlock infoBlock3 = new TextBlock()
-                                     {
-                                        Style = textblockStyle,
-                                        TextWrapping = TextWrapping.Wrap
-                                      };
+            {
+                Style = textblockStyle,
+                TextWrapping = TextWrapping.Wrap
+            };
             infoBlock3.Text = StringLinesRemover.ForgetLastLine(_deviceInfo.DeviceCodename);
             panel2.Children.Add(infoBlock3);
             DeviceInfoContentControl.Content = panel2;
 
-            Button hardwareBtn= new Button()
-                                {
-                                    Width = 150,
-                                    Height = 50,
-                                    HorizontalAlignment = HorizontalAlignment.Center,
-                                    Foreground = Brushes.Gray,
-                                    Content = "VIEW HARDWARE"
-                                };
+            Button hardwareBtn = new Button()
+            {
+                Width = 150,
+                Height = 50,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = Brushes.Gray,
+                Content = "VIEW HARDWARE"
+            };
             hardwareBtn.Click += hardwareBtn_Click;
             DeviceHardwareContentControl.Content = hardwareBtn;
             if (!string.IsNullOrEmpty(_adbDevicesBox.Text))
@@ -188,13 +188,14 @@ namespace AndroidToolkit
                     DeviceNoRoot.Visibility = Visibility.Visible;
                 }
             }
+
         }
 
         void hardwareBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ConnectionChecker.IsConnectedToInternet)
             {
-                Process.Start(string.Format("http://www.google.com/#q={0}",StringLinesRemover.ForgetLastLine(_deviceInfo.DeviceName)));
+                Process.Start(string.Format("http://www.google.com/#q={0}", StringLinesRemover.ForgetLastLine(_deviceInfo.DeviceName)));
             }
         }
 
@@ -231,7 +232,7 @@ namespace AndroidToolkit
             }
             catch (Exception ex)
             {
-               MetroMessageBoxHelper.ShowBox("ERROR",ex.ToString(),400,200);
+                MetroMessageBoxHelper.ShowBox("ERROR", ex.ToString(), 400, 200);
             }
 
         }
