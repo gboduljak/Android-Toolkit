@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using AndroidToolkit.Infrastructure;
 using AndroidToolkit.Infrastructure.Classes;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Threading;
 
 
 
@@ -346,8 +348,9 @@ namespace AndroidToolkit.Infrastructure
                     DeviceManufacturer(createWindow, target), 4));
 
             string os = StringLinesRemover.ForgetLastLine(StringLinesRemover.RemoveLine(DeviceOsVersion(createWindow, target), 4));
-            string osDetails = string.Empty; ;
-            string root = _executor.ExecuteSingleCommandReturn(new Command("adb remount"), createWindow);
+            string osDetails = string.Empty;
+            string root = string.Empty;
+            Parallel.Invoke(() => { root = _executor.ExecuteSingleCommandReturn(new Command("adb shell su"), createWindow); root=StringLinesRemover.RemoveLine(root,4); root=StringLinesRemover.ForgetLastLine(root); }, () => { Thread.Sleep(200); KillAdb(); });
             bool isRoot = false;
             if (os.Contains("1.5"))
             {
@@ -385,7 +388,7 @@ namespace AndroidToolkit.Infrastructure
             {
                 osDetails = "KIT KAT";
             }
-            if (root.Contains("remount s"))
+            if (root.Contains('#'))
             {
                 isRoot = true;
             }
